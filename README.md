@@ -1,7 +1,7 @@
 # 🌊 Bitácora de Simulación de Sistemas Interactivos (2026-20)
 
 **Estudiante:** Juan Guillermo Caicedo  
-**Curso:** Simulación de Sistemas Interactivos — Universidad Pontificia Bolivariana 
+**Curso:** Simulación de Sistemas Interactivos — Universidad Pontificia Bolivariana  
 **Profesor:** Juan Fernando Franco  
 
 ---
@@ -19,7 +19,7 @@ Este repositorio funciona como mi bitácora de desarrollo para el curso. Aquí d
 ### 🚀 Cómo ejecutar las simulaciones localmente
 1. Clona este repositorio:
    ```bash
-   git clone [https://github.com/tu-usuario/nombre-del-repo.git](https://github.com/tu-usuario/nombre-del-repo.git)
+   git clone [https://github.com/Alafresh/Bitacora_Simulacion.git](https://github.com/Alafresh/Bitacora_Simulacion.git)
    ```
 2. Instala las dependencias necesarias:
    ```bash
