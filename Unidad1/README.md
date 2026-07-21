@@ -7,7 +7,7 @@
 
 ## 📌 Actividad 01: Referentes, Recursos y Reflexión
 
-En esta primera actividad exploro los fundamentos conceptuales de la aleatoriedad como motor generativo, analizando cómo el azar controlado permite transformar algoritmos rígidos en sistemas dinámicos con variabilidad y expresividad orgánica.
+En esta primera actividad analizamos los fundamentos conceptuales de la aleatoriedad como motor generativo, entendiendo cómo el azar controlado permite transformar algoritmos rígidos en sistemas dinámicos con variabilidad y expresividad orgánica.
 
 ### 🔗 Enlaces de Investigación (Videos y Artículos)
 
@@ -21,23 +21,21 @@ En esta primera actividad exploro los fundamentos conceptuales de la aleatorieda
 
 ### 💭 Mi Reflexión: El Control Estético a través de la Aleatoriedad
 
-Una de las bases del arte generativo es la **aleatoriedad**; es la manera en que los artistas pueden multiplicar sus posibilidades, siendo esta una parte fundamental del proceso de creación. Al definir reglas alrededor de esta aleatoriedad, podemos cambiar el comportamiento y la aparición de las imágenes que queremos mostrar. Esto nos asegura que cada vez que ejecutemos el programa, el resultado será diferente al anterior, aportando una sensación de sorpresa, frescura y organicidad.
+Una de las bases del arte generativo es la **aleatoriedad**; es la manera en que los artistas pueden multiplicar sus posibilidades, siendo esta una parte fundamental del proceso de creación. Al definir reglas alrededor de esta aleatoriedad, podemos cambiar el comportamiento y la aparición de las imágenes que queremos mostrar. Esto nos asegura que cada vez que ejecutemos el programa, el resultado será diferente al anterior, aportando una sensación de sorpresa y frescura.
 
 Esta técnica es profundamente versátil y se puede aplicar a diversos atributos visuales:
 
 - **Color:** Variación de paletas, saturación y opacidad.
 - **Movimiento:** Vectores de dirección y velocidades variables.
-- **Forma y Geometría:** Mutación de vértices, escalas y densidades.
+- **Forma y Geometría:** poligonos, escalas y densidades.
 
-Se trata de un proceso interactivo y experimental que inicia a partir de una idea abstracta, la cual exploramos, traducimos a un algoritmo y sometemos a diferentes combinaciones paramétricas. En esencia, **el arte generativo es el proceso de generar arte a través del código, donde la aleatoriedad vive en la composición y se manifiesta en los detalles**. No es un azar caótico e incontrolable: controlamos cómo se comporta la aleatoriedad a través de la **probabilidad**, logrando exactamente los efectos estéticos que deseamos comunicarle al espectador.
+Se trata de un proceso interactivo y experimental que inicia a partir de una idea abstracta, la cual exploramos, traducimos a un algoritmo y sometemos a diferentes combinaciones. En palabras simples **el arte generativo es el proceso de generar arte a través del código, donde la aleatoriedad vive en la composición y se manifiesta en los detalles**. No es un azar caótico e incontrolable: controlamos cómo se comporta la aleatoriedad a través de la **probabilidad**, logrando exactamente los efectos estéticos que deseamos comunicarle al espectador.
 
 ### 📊 Exploración de Distribuciones Probabilísticas
 
-Para gobernar el azar en el código, es vital entender cómo se distribuyen los números aleatorios. En mi exploración identifico tres distribuciones clave para modelar comportamientos:
-
 | Tipo de Distribución                   | Comportamiento Teórico                                                                                                                                                              | Aplicación Estética y Algorítmica                                                                                                                                                                   |
 | :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1. Distribución Uniforme**           | Tiene exactamente la misma probabilidad de elegir cualquier número dentro de un rango determinado.                                                                                  | Es la más flexible y general en los lenguajes de programación (ej. `random()`). Se distribuye de manera homogénea y plana sobre un área o intervalo, ideal para dispersión isotrópica blanca.       |
+| **1. Distribución Uniforme**           | Tiene exactamente la misma probabilidad de elegir cualquier número dentro de un rango determinado.                                                                                  | Es la más flexible y general en los lenguajes de programación (ej. `random()`). Se distribuye de manera homogénea y plana sobre un área o intervalo.                                                |
 | **2. Distribución Gaussiana (Normal)** | A diferencia de la uniforme, prevalecen con altísima probabilidad los números cercanos a la media ($\mu$), disminuyendo hacia los extremos según la desviación estándar ($\sigma$). | Es extremadamente útil para aproximar valores que queremos que sean similares entre sí (como tamaños en la naturaleza o agrupación de entidades), pero conservando variaciones orgánicas realistas. |
 | **3. Ley de Potencia (Pareto / Lévy)** | Parte de un valor mínimo donde se concentra la mayor probabilidad, y esta disminuye exponencialmente a medida que el número aumenta (cola pesada).                                  | Perfecta para generar fenómenos donde "lo pequeño es común y lo gigantesco es raro" (ej. Vuelos de Lévy), creando trayectorias con muchos pasos cortos locales y saltos largos sorpresivos.         |
 
