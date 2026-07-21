@@ -5,7 +5,7 @@
 
 ---
 
-## 📌 Actividad 01: Referentes, Recursos y Reflexión
+## 📌 Actividad 01: Recursos y Reflexión
 
 En esta primera actividad analizamos los fundamentos conceptuales de la aleatoriedad como motor generativo, entendiendo cómo el azar controlado permite transformar algoritmos rígidos en sistemas dinámicos con variabilidad y expresividad orgánica.
 
@@ -37,7 +37,13 @@ Se trata de un proceso interactivo y experimental que inicia a partir de una ide
 | :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **1. Distribución Uniforme**           | Tiene exactamente la misma probabilidad de elegir cualquier número dentro de un rango determinado.                                                                                  | Es la más flexible y general en los lenguajes de programación (ej. `random()`). Se distribuye de manera homogénea y plana sobre un área o intervalo.                                                |
 | **2. Distribución Gaussiana (Normal)** | A diferencia de la uniforme, prevalecen con altísima probabilidad los números cercanos a la media ($\mu$), disminuyendo hacia los extremos según la desviación estándar ($\sigma$). | Es extremadamente útil para aproximar valores que queremos que sean similares entre sí (como tamaños en la naturaleza o agrupación de entidades), pero conservando variaciones orgánicas realistas. |
-| **3. Ley de Potencia (Pareto / Lévy)** | Parte de un valor mínimo donde se concentra la mayor probabilidad, y esta disminuye exponencialmente a medida que el número aumenta (cola pesada).                                  | Perfecta para generar fenómenos donde "lo pequeño es común y lo gigantesco es raro" (ej. Vuelos de Lévy), creando trayectorias con muchos pasos cortos locales y saltos largos sorpresivos.         |
+| **3. Ley de Potencia (Pareto / Lévy)** | Parte de un valor mínimo donde se concentra la mayor probabilidad, y esta disminuye exponencialmente a medida que el número aumenta.                                                | Perfecta para generar fenómenos donde "lo pequeño es común y lo gigantesco es raro" (ej. Vuelos de Lévy), creando trayectorias con muchos pasos cortos locales y saltos largos sorpresivos.         |
+
+---
+
+## 📌 Actividad 02: Caminatas aleatorias
+
+- [A Traditional Random Walk](https://natureofcode.com/random/#example-01-a-traditional-random-walk).
 
 ## 📌 Actividades Siguientes (Próximamente)
 
