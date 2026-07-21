@@ -19,7 +19,7 @@ Este repositorio funciona como mi bitácora de desarrollo para el curso. Aquí d
 ### 🚀 Cómo ejecutar las simulaciones localmente
 1. Clona este repositorio:
    ```bash
-   git clone [https://github.com/Alafresh/Bitacora_Simulacion.git](https://github.com/Alafresh/Bitacora_Simulacion.git)
+   git clone https://github.com/Alafresh/Bitacora_Simulacion.git
    ```
 2. Instala las dependencias necesarias:
    ```bash
