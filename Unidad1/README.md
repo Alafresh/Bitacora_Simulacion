@@ -44,6 +44,36 @@ Se trata de un proceso interactivo y experimental que inicia a partir de una ide
 ## 📌 Actividad 02: Caminatas aleatorias
 
 - [A Traditional Random Walk](https://natureofcode.com/random/#example-01-a-traditional-random-walk).
+- [Actividad2](./Actividad_2.js)
+
+### 🔍 Análisis del Código
+
+Al evaluar la estructura del algoritmo de caminata aleatoria, podemos dividir el sistema en dos componentes fundamentales: el **Ciclo de Vida del Programa** y la **Clase Walker**.
+
+#### 1. Ciclo de Vida del Programa (p5.js)
+
+El flujo de ejecución del programa se rige por dos funciones principales:
+
+- **`setup()` (Estado Inicial):** Se ejecuta una única vez al iniciar el programa. Su responsabilidad es preparar el entorno de simulación (crear el lienzo o _canvas_) e instanciar los objetos principales. Es el punto donde nace nuestra simulación.
+- **`draw()` (Bucle de Tiempo / Integración):** Se llama de forma continua y repetitiva en cada cuadro (_frame_). Es el corazón de la animación y el encargado de recibir _inputs_ del usuario. En nuestra simulación, gestiona la evolución del tiempo discreto llamando en cada ciclo a los métodos del objeto para actualizar su estado y presentarlo en pantalla.
+
+#### 2. Modelado de la Clase `Walker`
+
+Para encapsular el comportamiento del agente, utilizamos una clase llamada `Walker`, la cual abstrae su estado y sus capacidades mediante dos métodos core:
+
+- **`show()`:** Encargado estrictamente del renderizado visual; dibuja la posición actual del caminante en el lienzo.
+- **`step()`:** Contiene la lógica matemática de movimiento y avance. En lugar de seguir una trayectoria determinista, opera de forma estocástica utilizando la función `random(4)`.
+
+#### 3. Lógica Estocástica y Discretización ($\Delta t$)
+
+Dentro del método `step()`, la evaluación de `random(4)` genera una distribución probabilística que toma valores enteros o condicionales para dividir el espacio en 4 direcciones ortogonales posibles:
+
+1. **Arriba** ($y -= \text{paso}$)
+2. **Abajo** ($y += \text{paso}$)
+3. **Izquierda** ($x -= \text{paso}$)
+4. **Derecha** ($x += \text{paso}$)
+
+En la función `draw()`, al llamar secuencialmente a `walker.step()` y luego a `walker.show()`, estamos integrando numéricamente una trayectoria donde cada _frame_ representa un paso de tiempo discreto ($\Delta t$), permitiendo que el punto emerja y navegue caóticamente por la pantalla sin intervención externa.
 
 ## 📌 Actividades Siguientes (Próximamente)
 
