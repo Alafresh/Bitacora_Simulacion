@@ -33,11 +33,11 @@ Se trata de un proceso interactivo y experimental que inicia a partir de una ide
 
 ### 📊 Exploración de Distribuciones Probabilísticas
 
-| Tipo de Distribución                   | Comportamiento Teórico                                                                                                                                                              | Aplicación Estética y Algorítmica                                                                                                                                                                   |
-| :------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1. Distribución Uniforme**           | Tiene exactamente la misma probabilidad de elegir cualquier número dentro de un rango determinado.                                                                                  | Es la más flexible y general en los lenguajes de programación (ej. `random()`). Se distribuye de manera homogénea y plana sobre un área o intervalo.                                                |
-| **2. Distribución Gaussiana (Normal)** | A diferencia de la uniforme, prevalecen con altísima probabilidad los números cercanos a la media ($\mu$), disminuyendo hacia los extremos según la desviación estándar ($\sigma$). | Es extremadamente útil para aproximar valores que queremos que sean similares entre sí (como tamaños en la naturaleza o agrupación de entidades), pero conservando variaciones orgánicas realistas. |
-| **3. Ley de Potencia (Pareto / Lévy)** | Parte de un valor mínimo donde se concentra la mayor probabilidad, y esta disminuye exponencialmente a medida que el número aumenta.                                                | Perfecta para generar fenómenos donde "lo pequeño es común y lo gigantesco es raro" (ej. Vuelos de Lévy), creando trayectorias con muchos pasos cortos locales y saltos largos sorpresivos.         |
+| Tipo de Distribución            | Comportamiento Teórico                                                                                                                                                              | Aplicación Estética y Algorítmica                                                                                                                                                                   |
+| :------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Distribución Uniforme**    | Tiene exactamente la misma probabilidad de elegir cualquier número dentro de un rango determinado.                                                                                  | Es la más flexible y general en los lenguajes de programación (ej. `random()`). Se distribuye de manera homogénea y plana sobre un área o intervalo.                                                |
+| **2. Distribución Gaussiana**   | A diferencia de la uniforme, prevalecen con altísima probabilidad los números cercanos a la media ($\mu$), disminuyendo hacia los extremos según la desviación estándar ($\sigma$). | Es extremadamente útil para aproximar valores que queremos que sean similares entre sí (como tamaños en la naturaleza o agrupación de entidades), pero conservando variaciones orgánicas realistas. |
+| **3. Ley de Potencia (Pareto)** | Parte de un valor mínimo donde se concentra la mayor probabilidad, y esta disminuye exponencialmente a medida que el número aumenta.                                                | Perfecta para generar fenómenos donde "lo pequeño es común y lo gigantesco es raro" (ej. Vuelos de Lévy), creando trayectorias con muchos pasos cortos locales y saltos largos sorpresivos.         |
 
 ---
 
@@ -55,18 +55,18 @@ Al evaluar la estructura del algoritmo de caminata aleatoria, podemos dividir el
 El flujo de ejecución del programa se rige por dos funciones principales:
 
 - **`setup()` (Estado Inicial):** Se ejecuta una única vez al iniciar el programa. Su responsabilidad es preparar el entorno de simulación (crear el lienzo o _canvas_) e instanciar los objetos principales. Es el punto donde nace nuestra simulación.
-- **`draw()` (Bucle de Tiempo / Integración):** Se llama de forma continua y repetitiva en cada cuadro (_frame_). Es el corazón de la animación y el encargado de recibir _inputs_ del usuario. En nuestra simulación, gestiona la evolución del tiempo discreto llamando en cada ciclo a los métodos del objeto para actualizar su estado y presentarlo en pantalla.
+- **`draw()` (Bucle de Tiempo / Integración):** Se llama de forma continua y repetitiva en cada cuadro (_frame_). Es el corazón de la animación y el encargado de recibir _inputs_ del usuario. En nuestra simulación, gestiona en cada ciclo a los métodos del objeto para actualizar su estado y presentarlo en pantalla.
 
 #### 2. Modelado de la Clase `Walker`
 
-Para encapsular el comportamiento del agente, utilizamos una clase llamada `Walker`, la cual abstrae su estado y sus capacidades mediante dos métodos core:
+Para encapsular el comportamiento del agente, utilizamos una clase llamada `Walker`, la cual cuanta con dos métodos principales:
 
 - **`show()`:** Encargado estrictamente del renderizado visual; dibuja la posición actual del caminante en el lienzo.
 - **`step()`:** Contiene la lógica matemática de movimiento y avance. En lugar de seguir una trayectoria determinista, opera de forma estocástica utilizando la función `random(4)`.
 
-#### 3. Lógica Estocástica y Discretización ($\Delta t$)
+#### 3. Lógica de movimiento ($\Delta t$)
 
-Dentro del método `step()`, la evaluación de `random(4)` genera una distribución probabilística que toma valores enteros o condicionales para dividir el espacio en 4 direcciones ortogonales posibles:
+Dentro del método `step()`, la evaluación de `random(4)` genera una distribución uniforme que toma valores enteros y las condicionales dividen el espacio en 4 direcciones posibles:
 
 1. **Arriba** ($y -= \text{paso}$)
 2. **Abajo** ($y += \text{paso}$)
@@ -75,9 +75,15 @@ Dentro del método `step()`, la evaluación de `random(4)` genera una distribuci
 
 En la función `draw()`, al llamar secuencialmente a `walker.step()` y luego a `walker.show()`, estamos integrando numéricamente una trayectoria donde cada _frame_ representa un paso de tiempo discreto ($\Delta t$), permitiendo que el punto emerja y navegue caóticamente por la pantalla sin intervención externa.
 
+## 📌 Actividad 03: Distribuciones de probabilidad
+
+[randomGaussian](https://p5js.org/reference/p5/randomGaussian/)
+
+### 💭 Que es Distribucion uniforme y no uniforme en numeros aleatorios
+
+La distribución uniforme es la que elige un número que tiene la misma probabilidad de salir en un rango, osea que de un rango de 1 al 10 todos tienen la misma probabilidad de ser elegidos, Mientras que en una distribución no uniforme se ve influenciada por un comportamiento para darle preferencia a un rango de números cercanos y baja la probabilidad de los otros números, por lo tanto es menos probable que elija un número en igualdad de condiciones
+
 ## 📌 Actividades Siguientes (Próximamente)
 
-- [ ] **Actividad 02:** _Implementación de Caminatas Aleatorias (Random Walks)_
-- [ ] **Actividad 03:** _Exploración con Distribuciones Gaussianas y Personalizadas_
 - [ ] **Actividad 04:** _Introducción al Ruido de Perlin (Perlin Noise)_
 - [ ] **Actividad 05 / Reto de Diseño:** _Prototipo de Simulación Visual de la Unidad 1_

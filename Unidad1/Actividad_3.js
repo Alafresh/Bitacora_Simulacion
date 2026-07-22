@@ -27,15 +27,12 @@ class Walker {
   }
 
   step() {
-    const stepY = floor(random(2))
-    const stepX = floor(randomGaussian(5))
-    console.log(stepX)
-    if (stepX >= 3) {
+    const choice = floor(randomGaussian(1))
+    if (choice == 1) {
       this.x++
-    } else {
+    } else if (choice == 0) {
       this.x--
-    }
-    if (stepY == 0) {
+    } else if (choice == 2) {
       this.y++
     } else {
       this.y--
