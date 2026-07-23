@@ -103,9 +103,11 @@ Para este ejercicio nos inspiramos de los rayos del sol, creamos un loop que rec
 
 [Lévy flight - The nature of code](https://natureofcode.com/random/#a-custom-distribution-of-random-numbers)  
 [Lévy flight - wikipedia](https://en.wikipedia.org/wiki/L%C3%A9vy_flight)  
-[Caminante + saltos de Lévy - Codigo fuente](./Actividad_5.js)
-El ejemplo seleccionado fue el Random Walk, ya que es un algoritmo que ya habias analizado y es facil de manipular debido a que el libro guia nos sugiere una variacion de este ejemplo considedre que es facil de implementar esperaba obtener un resultado parecido a la segunda imagen aunque no es similar me gusto el resultado final, cambiamos puntos por lineas y agregamos dos nuevas variables a nuestra clase para guardar las posiciones anteriores
+[Caminante + saltos de Lévy - Codigo fuente](./Actividad_5.js)  
+El ejemplo seleccionado fue el Random Walk, ya que es un algoritmo que ya habiamos analizado y es facil de manipular debido a que el libro guia nos sugiere una variacion de este ejemplo considedre que es facil de implementar esperaba obtener un resultado parecido a la segunda imagen aunque no es similar me gusto el resultado final, cambiamos puntos por lineas y agregamos dos nuevas variables a nuestra clase para guardar las posiciones anteriores
 ![Resultado](./assets/Actividad_5.png)
 ![Esperado](./assets/ejemplo_wiki.png)
 
 ---
+
+## 📌 Actividad 06: Ruido Perlin
