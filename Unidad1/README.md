@@ -77,14 +77,21 @@ En la función `draw()`, al llamar secuencialmente a `walker.step()` y luego a `
 
 ## 📌 Actividad 03: Distribuciones de probabilidad
 
-[randomGaussian](https://p5js.org/reference/p5/randomGaussian/)
-[Caminante con tendencia de moverse a la derecha](./Actividad_3.js)
+[randomGaussian](https://p5js.org/reference/p5/randomGaussian/)  
+[Caminante con tendencia de moverse a la derecha - Codigo fuente](./Actividad_3.js)  
 Para favorecer la caminata hacia la derecha se creo edito el metodo `step` de la clase `Walker` se agrego dos nuevas variables `let xstep = randomGaussian(0.5, 1.2)` y `let ystep = randomGaussian(0, 1.2)` para controlar su movimiento independientemente por ultimo se favorecio los valores mayores de 0 en el movimiento hacia la derecha ya que la media es 0.5 favorece la caminata
 ![imagen_actividad3](./assets/right_walker.png)
 
 ### 💭 Que es Distribucion uniforme y no uniforme en numeros aleatorios
 
 La distribución uniforme es la que elige un número que tiene la misma probabilidad de salir en un rango, osea que de un rango de 1 al 10 todos tienen la misma probabilidad de ser elegidos, Mientras que en una distribución no uniforme se ve influenciada por un comportamiento para darle preferencia a un rango de números cercanos y baja la probabilidad de los otros números, por lo tanto es menos probable que elija un número en igualdad de condiciones
+
+## 📌 Actividad 04: Distribución Normal
+
+[ A Gaussian Distribution, The Nature of Code](https://natureofcode.com/random/#example-04-a-gaussian-distribution)
+[Distribucion normal - Codigo fuente](./Actividad_4.js)
+Para este ejercicio nos inspiramos de los rayos del sol, creamos un loop que recorre 360 numeros, en cada numero dibujamos una linea la cual rotamos un grado gracias al metodo `rotate()` y `radians()` usamos el metodo `randomGaussian()` para manipular la longitud de esta linea
+![Imagen_Actividad4](./assets/actividad_4.png)
 
 ## 📌 Actividades Siguientes (Próximamente)
 
