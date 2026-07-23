@@ -113,7 +113,18 @@ El ejemplo seleccionado fue el Random Walk, ya que es un algoritmo que ya habiam
 
 ## 📌 Actividad 06: Ruido Perlin
 
-[Ruido Perlin - The nature of code](https://natureofcode.com/random/#a-smoother-approach-with-perlin-noise)
-[Ruido de perlin - codigo fuente](./Actividad_6.js)
+[Ruido Perlin - The nature of code](https://natureofcode.com/random/#a-smoother-approach-with-perlin-noise)  
+[Ruido de perlin - codigo fuente](./Actividad_6.js)  
 Este concepto produce una secuencia fluida de numeros pseudoaleatorios, donde cada numero en la secuencia esta cerca al valor anterior, esto crea una transicion suave entre los numeros aleatorios y da una apariencia mas organica que solo ruido. Para este reto esperaba controlar el diametro de un circulo para dar el efecto de palpitacion de un corazon ya que el ruido de perlin es util para simular efectos organicos, aunque es una version muy simplificada de este efecto estoy satisfecho con el resultado.  
 ![Ruido gif](./assets/Actividad-6.gif)
+
+---
+
+## 📌 Actividad 07: Reto de diseño: Navegar la incertidumbre
+
+[festival internacional de la imagen](https://www.instagram.com/p/DJS5mH3OD-5/?hl=es&img_index=8)
+Espacio de encuentro y debate entre arte, diseño, ciencia y tecnología muestra de visuales generativos creados en vivo, combinando código, sensibilidad pictórica y una profunda conexión con el sonido.
+
+Concepto Visual: "Dispersión", Nacen constantemente particulas que viajan hacia arriba, y el comportamiento de estas particulas es incierta, pero esta incertidumbre no es un caos, sino una mezcla de reglas matematicas.
+
+[Codigo Fuente](./reto_diseno.js)
