@@ -105,9 +105,15 @@ Para este ejercicio nos inspiramos de los rayos del sol, creamos un loop que rec
 [Lévy flight - wikipedia](https://en.wikipedia.org/wiki/L%C3%A9vy_flight)  
 [Caminante + saltos de Lévy - Codigo fuente](./Actividad_5.js)  
 El ejemplo seleccionado fue el Random Walk, ya que es un algoritmo que ya habiamos analizado y es facil de manipular debido a que el libro guia nos sugiere una variacion de este ejemplo considedre que es facil de implementar esperaba obtener un resultado parecido a la segunda imagen aunque no es similar me gusto el resultado final, cambiamos puntos por lineas y agregamos dos nuevas variables a nuestra clase para guardar las posiciones anteriores
+
 ![Resultado](./assets/Actividad_5.png)
 ![Esperado](./assets/ejemplo_wiki.png)
 
 ---
 
 ## 📌 Actividad 06: Ruido Perlin
+
+[Ruido Perlin - The nature of code](https://natureofcode.com/random/#a-smoother-approach-with-perlin-noise)
+[Ruido de perlin - codigo fuente](./Actividad_6.js)
+Este concepto produce una secuencia fluida de numeros pseudoaleatorios, donde cada numero en la secuencia esta cerca al valor anterior, esto crea una transicion suave entre los numeros aleatorios y da una apariencia mas organica que solo ruido. Para este reto esperaba controlar el diametro de un circulo para dar el efecto de palpitacion de un corazon ya que el ruido de perlin es util para simular efectos organicos, aunque es una version muy simplificada de este efecto estoy satisfecho con el resultado.
+![Ruido gif](./assets/Actividad-6.gif)
