@@ -27,15 +27,20 @@ class Walker {
   }
 
   step() {
-    const choice = floor(randomGaussian(1))
-    if (choice == 1) {
-      this.x++
-    } else if (choice == 0) {
-      this.x--
-    } else if (choice == 2) {
-      this.y++
+    let xstep = randomGaussian(0.5, 1.2)
+    let ystep = randomGaussian(0, 1.2)
+    print(xstep)
+
+    if (xstep > 0) {
+      this.x += floor(abs(xstep))
     } else {
-      this.y--
+      this.x -= floor(abs(xstep))
+    }
+
+    if (ystep > 0) {
+      this.y += floor(abs(ystep))
+    } else {
+      this.y -= floor(abs(ystep))
     }
   }
 }

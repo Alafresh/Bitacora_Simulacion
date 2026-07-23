@@ -78,6 +78,9 @@ En la función `draw()`, al llamar secuencialmente a `walker.step()` y luego a `
 ## 📌 Actividad 03: Distribuciones de probabilidad
 
 [randomGaussian](https://p5js.org/reference/p5/randomGaussian/)
+[Caminante con tendencia de moverse a la derecha](./Actividad_3.js)
+Para favorecer la caminata hacia la derecha se creo edito el metodo `step` de la clase `Walker` se agrego dos nuevas variables `let xstep = randomGaussian(0.5, 1.2)` y `let ystep = randomGaussian(0, 1.2)` para controlar su movimiento independientemente por ultimo se favorecio los valores mayores de 0 en el movimiento hacia la derecha ya que la media es 0.5 favorece la caminata
+![imagen_actividad3](./assets/right_walker.png)
 
 ### 💭 Que es Distribucion uniforme y no uniforme en numeros aleatorios
 
