@@ -32,15 +32,15 @@ class Walker {
     print(xstep)
 
     if (xstep > 0) {
-      this.x += floor(abs(xstep))
+      this.x++
     } else {
-      this.x -= floor(abs(xstep))
+      this.x--
     }
 
     if (ystep > 0) {
-      this.y += floor(abs(ystep))
+      this.y++
     } else {
-      this.y -= floor(abs(ystep))
+      this.y--
     }
   }
 }
