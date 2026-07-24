@@ -133,6 +133,15 @@ Espacio de encuentro y debate entre arte, diseño, ciencia y tecnología muestra
 [Codigo Fuente](./reto_diseno.js)  
 ![Gif_reto_Diseno](./assets/reto_7.gif)
 
+- **Posibilidad** La agitacion constante, de cada particula en x usando `random(-1, 1)`
+- **Tendencia** El caos de solo aleatoriedad no construye sistemas, Para crear una direccion suavizada use el ruido de perlin creando un recorrido en zigzag organico
+
+```js
+// 2. TENDENCIA: Flujo suave (Ruido Perlin)
+let perlinNoise = noise(this.x * 0.01, this.y * 0.01)
+let tendenciaX = map(perlinNoise, 0, 1, -2, 3)
+```
+
 | Criterio                                                                                                                                          | Cumplo | No cumplo | Evidencia                       |
 | :------------------------------------------------------------------------------------------------------------------------------------------------ | :----: | :-------: | :------------------------------ |
 | **Encargo completo:** interpreto los cinco momentos dentro de un mismo sistema visual.                                                            |   X    |           | [evidencia 1]()                 |
