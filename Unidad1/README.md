@@ -122,9 +122,9 @@ Este concepto produce una secuencia fluida de numeros pseudoaleatorios, donde ca
 
 ## 📌 Actividad 07: Reto de diseño: Navegar la incertidumbre
 
-[festival internacional de la imagen](https://www.instagram.com/p/DJS5mH3OD-5/?hl=es&img_index=8)
+[festival internacional de la imagen](https://www.instagram.com/p/DJS5mH3OD-5/?hl=es&img_index=8)  
 Espacio de encuentro y debate entre arte, diseño, ciencia y tecnología muestra de visuales generativos creados en vivo, combinando código, sensibilidad pictórica y una profunda conexión con el sonido.
 
-Concepto Visual: "Dispersión", Nacen constantemente particulas que viajan hacia arriba, y el comportamiento de estas particulas es incierta, pero esta incertidumbre no es un caos, sino una mezcla de reglas matematicas.
+**Concepto Visual:** "Dispersión", Nacen constantemente particulas que viajan hacia arriba, y el comportamiento de estas particulas es incierta, pero esta incertidumbre no es un caos, sino una mezcla de reglas matematicas.
 
 [Codigo Fuente](./reto_diseno.js)
