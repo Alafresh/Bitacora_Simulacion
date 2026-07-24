@@ -127,19 +127,54 @@ Espacio de encuentro y debate entre arte, diseño, ciencia y tecnología muestra
 
 **Concepto Visual:** "Dispersión", Nacen constantemente particulas que viajan hacia arriba, y el comportamiento de estas particulas es incierta, pero esta incertidumbre no es un caos, sino una mezcla de reglas matematicas.
 
-**Intencion Conceptual** Una corriente electrica que fluye por un camino las particulas son energia fluyendo, el ruido de perlin representa el camino por donde avanzar el cable, la distribucion gaussiana representa el voltage que es la potencia con la cual las particulas se empujan formando un rayo concentrado, por ultimo levy flight representa un 1% de probabilidad de generar un corto circuito, por ultimo el random genera una vibracion que tiene mis particulas de energia
+**Intencion Conceptual** Una corriente electrica que fluye por un camino las particulas son energia fluyendo, el ruido de perlin representa el camino por donde avanzar el cable, la distribucion gaussiana representa el voltage que es la potencia con la cual las particulas se empujan formando un rayo concentrado, el levy flight representa un 1% de probabilidad de generar un corto circuito, por ultimo el random genera una vibracion que tiene mis particulas de energia
 
 [demo vivo](https://editor.p5js.org/alafresh16/sketches/_021BXcZN)  
 [Codigo Fuente](./reto_diseno.js)  
 ![Gif_reto_Diseno](./assets/reto_7.gif)
 
-- **Posibilidad** La agitacion constante, de cada particula en x usando `random(-1, 1)`
+- **Posibilidad** La agitacion constante, de cada particula en x usando
+
+```js
+// 1. Posibilidad: (Caminata aleatoria)
+let pasoX = random(-1, 1)
+let pasoY = random(-1, 1)
+```
+
 - **Tendencia** El caos de solo aleatoriedad no construye sistemas, Para crear una direccion suavizada use el ruido de perlin creando un recorrido en zigzag organico
 
 ```js
 // 2. TENDENCIA: Flujo suave (Ruido Perlin)
 let perlinNoise = noise(this.x * 0.01, this.y * 0.01)
 let tendenciaX = map(perlinNoise, 0, 1, -2, 3)
+```
+
+- **Normalidad** El centro de de la experiencia es la mitad de la pantalla, usando distribuccion gaussina, con una desviacion que puede cambiar el usuario con la posicion del mouse
+
+```js
+// 3. NORMALIDAD: Atracción al centro de la campana de Gauss
+let objetivoX = randomGaussian(width / 2, sd)
+let tironX = (objetivoX - this.x) * 0.05
+```
+
+- **Excepcion** cuando hay una chispa ocurre un corto circuito. Esto lo represente con el salto de levy con una probabilidad 1% es un evento improbable pero el usuario puede alterarlo llevando la posicion del mouse a la derecha
+
+```js
+// 4. EXCEPCIÓN: Lévy Flight
+if (random(1) < levyProb) {
+  pasoX = random(-150, 150)
+  pasoY = random(-150, 150)
+}
+```
+
+- **Influencia** El sistema funciona sin intervencion, pero la interaccion del usuario altera las leyes de probabilidad, mover el mouse vertical altera la desviacion y las particulas se mueven horizontalmente y mover el mouse horizontal aumenta el salto de levy para general el corto circuito
+
+```js
+// 5. INFLUENCIA: El usuario modifica las probabilidades del sistema
+if (mouseX > 0 && mouseY > 0) {
+  sd = map(mouseY, 0, height, 10, 300)
+  levyProb = map(mouseX, 0, width, 0.0001, 0.05)
+}
 ```
 
 | Criterio                                                                                                                                          | Cumplo | No cumplo | Evidencia                       |

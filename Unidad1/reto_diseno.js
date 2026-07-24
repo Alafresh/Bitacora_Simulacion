@@ -16,7 +16,7 @@ function draw() {
   // Fondo con baja opacidad para crear el efecto de "estela" o rastro
   background(10, 20)
 
-  // INFLUENCIA: El usuario modifica las probabilidades del sistema
+  // 5. INFLUENCIA: El usuario modifica las probabilidades del sistema
   if (mouseX > 0 && mouseY > 0) {
     sd = map(mouseY, 0, height, 10, 300)
     levyProb = map(mouseX, 0, width, 0.0001, 0.05)
@@ -42,7 +42,7 @@ class Particula {
     this.px = this.x
     this.py = this.y
 
-    // 1. Ruido base (Caminata aleatoria)
+    // 1. Posibilidad: (Caminata aleatoria)
     let pasoX = random(-1, 1)
     let pasoY = random(-1, 1)
 
@@ -51,13 +51,13 @@ class Particula {
     let tendenciaX = map(perlinNoise, 0, 1, -2, 3) // Favorece un poco la derecha
     let tendenciaY = -2 // Empuje constante hacia arriba
 
-    // 3. EXCEPCIÓN: Lévy Flight
+    // 4. EXCEPCIÓN: Lévy Flight
     if (random(1) < levyProb) {
       pasoX = random(-150, 150) // El salto gigante
       pasoY = random(-150, 150)
     }
 
-    // 4. NORMALIDAD: Atracción al centro de la campana de Gauss
+    // 3. NORMALIDAD: Atracción al centro de la campana de Gauss
     let objetivoX = randomGaussian(width / 2, sd)
     let tironX = (objetivoX - this.x) * 0.05 // Interpolación para un tirón suave
 
