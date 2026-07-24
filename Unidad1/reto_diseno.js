@@ -3,10 +3,8 @@ let sd = 50 // Desviación estándar base (Normalidad)
 let levyProb = 0.01 // Probabilidad inicial de salto (Excepción)
 
 function setup() {
-  // Formato 9:16 - fullscreen interactivo
   createCanvas(1080, 1920)
 
-  // Instanciamos 150 partículas y las guardamos en el arreglo
   for (let i = 0; i < 150; i++) {
     particulas.push(new Particula())
   }
@@ -20,20 +18,16 @@ function draw() {
 
   // INFLUENCIA: El usuario modifica las probabilidades del sistema
   if (mouseX > 0 && mouseY > 0) {
-    // Mover el mouse en Y afecta la campana de Gauss (Normalidad)
     sd = map(mouseY, 0, height, 10, 300)
-    // Mover el mouse en X altera la probabilidad de que ocurra un evento raro (Excepción)
     levyProb = map(mouseX, 0, width, 0.0001, 0.05)
   }
 
-  // Iteramos sobre el arreglo usando programación orientada a objetos
   for (let p of particulas) {
     p.update(sd, levyProb)
     p.show()
   }
 }
 
-// --- CLASE PARTICULA ---
 class Particula {
   constructor() {
     this.x = random(width)
@@ -48,13 +42,13 @@ class Particula {
     this.px = this.x
     this.py = this.y
 
-    // 1. POSIBILIDAD: Ruido base (Caminata aleatoria simple vibratoria)
+    // 1. Ruido base (Caminata aleatoria)
     let pasoX = random(-1, 1)
     let pasoY = random(-1, 1)
 
     // 2. TENDENCIA: Flujo suave (Ruido Perlin) empujando hacia arriba
-    let n = noise(this.x * 0.01, this.y * 0.01)
-    let tendenciaX = map(n, 0, 1, -2, 3) // Favorece un poco la derecha
+    let perlinNoise = noise(this.x * 0.01, this.y * 0.01)
+    let tendenciaX = map(perlinNoise, 0, 1, -2, 3) // Favorece un poco la derecha
     let tendenciaY = -2 // Empuje constante hacia arriba
 
     // 3. EXCEPCIÓN: Lévy Flight
@@ -71,7 +65,7 @@ class Particula {
     this.x += pasoX + tendenciaX + tironX
     this.y += pasoY + tendenciaY
 
-    // --- REGLAS DE CICLO DE VIDA (Para que el sistema sea infinito) ---
+    // --- REGLAS DE CICLO DE VIDA  ---
     // Si sale por arriba, la reseteamos en la parte de abajo
     if (this.y < 0) {
       this.y = height

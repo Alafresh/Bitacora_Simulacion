@@ -127,4 +127,7 @@ Espacio de encuentro y debate entre arte, diseño, ciencia y tecnología muestra
 
 **Concepto Visual:** "Dispersión", Nacen constantemente particulas que viajan hacia arriba, y el comportamiento de estas particulas es incierta, pero esta incertidumbre no es un caos, sino una mezcla de reglas matematicas.
 
+**Intencion Conceptual** Una corriente electrica que fluye por un camino las particulas son energia fluyendo, el ruido de perlin representa el camino por donde avanzar el cable, la distribucion gaussiana representa el voltage que es la potencia con la cual las particulas se empujan formando un rayo concentrado, por ultimo levy flight representa un 1% de probabilidad de generar un corto circuito, por ultimo el random genera una vibracion que tiene mis particulas de energia
+
 [Codigo Fuente](./reto_diseno.js)
+![Gif_reto_Diseno](./assets/reto_7.gif)
