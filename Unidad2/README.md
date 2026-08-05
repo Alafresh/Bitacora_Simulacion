@@ -104,3 +104,7 @@ Hay 1250 particulas, 1 Atractor, el alcance entre las 7 particulas es corto mien
 | Experimenté, comparé, seleccioné y descarté con criterios claros.                 |   10%    |            |        |
 | Puedo distinguir y sustentar lo diseñado y lo emergente.                          |   10%    |            |        |
 | **Total**                                                                         | **100%** |            |        |
+
+[Imagen_1](./images/Particle_life.png)
+[Imagen_2](./images/Particle_life_2.png)
+[Imagen_3](./images/Particle_life_3.png)
