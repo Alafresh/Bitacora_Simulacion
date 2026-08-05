@@ -95,15 +95,15 @@ Hay 1250 particulas, 1 Atractor, el alcance entre las 7 particulas es corto mien
 - **Masa:** Mantén presionada `Q` (Disminuir) o `E` (Aumentar) para ajustar la capacidad de absorción del atractor.
 - **Explosión:** Barra `Espaciadora` para detonar manualmente la materia acumulada.
 
-| Criterio                                                                          |   Peso   | Valoración | Aporte |
-| :-------------------------------------------------------------------------------- | :------: | :--------: | :----: |
-| La intención es clara y perceptible en el comportamiento.                         |   20%    |            |        |
-| Los tipos, cantidades, matriz y parámetros están justificados desde la intención. |   25%    |            |        |
-| Comprendo y puedo modificar el funcionamiento técnico del sistema.                |   20%    |            |        |
-| El sistema produce variaciones con una identidad reconocible.                     |   15%    |            |        |
-| Experimenté, comparé, seleccioné y descarté con criterios claros.                 |   10%    |            |        |
-| Puedo distinguir y sustentar lo diseñado y lo emergente.                          |   10%    |            |        |
-| **Total**                                                                         | **100%** |            |        |
+| Criterio                                                                          |   Peso   | Valoración | Aporte  |
+| :-------------------------------------------------------------------------------- | :------: | :--------: | :-----: | --- | -------- | --- | --- |
+| La intención es clara y perceptible en el comportamiento.                         |   20%    |    5.0     |   1.0   |
+| Los tipos, cantidades, matriz y parámetros están justificados desde la intención. |   25%    |    5.0     |  1.25   |
+| Comprendo y puedo modificar el funcionamiento técnico del sistema.                |   20%    |    5.0     |   1.0   |
+| El sistema produce variaciones con una identidad reconocible.                     |   15%    |    5.0     |  0.75   |
+| Experimenté, comparé, seleccioné y descarté con criterios claros.                 |   10%    |    5.0     |   0.5   |
+| Puedo distinguir y sustentar lo diseñado y lo emergente.                          |   10%    |    5.0     |   0.5   |
+| **Total**                                                                         | **100%** |            | **5.0** |     | **100%** |     |     |
 
 ![Imagen_1](./images/Particle_life.png)
 ![Imagen_2](./images/Particle_life_2.png)
