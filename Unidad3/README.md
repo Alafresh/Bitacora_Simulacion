@@ -1,4 +1,4 @@
-# 🌊 Unidad 2: Fuerzas
+# 🌊 Unidad 3: Fuerzas
 
 **Texto Guia:** Capítulo 2 - Vectores de \_[The Nature of Code](https://natureofcode.com/forces/)
 **Herramienta de desarrollo:** three.js / JavaScript
@@ -45,3 +45,9 @@ En esta actividad exploraremos referentes visuales, los cuales son utiles para a
 ## 📌 Actividad 02: Laboratorio de fuerzas
 
 - 📄[Caso de estudio](https://github.com/juanferfranco/forces-instrument-u3)
+
+## 📌 Actividad 03: Encargo de Diseño
+
+Interpretaremos esta pieza musical
+
+- 📹[LesAlpx](https://music.youtube.com/watch?v=iuTk8x410mk&si=5uIiZlxhe_l92Fny)
