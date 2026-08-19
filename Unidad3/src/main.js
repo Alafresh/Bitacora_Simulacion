@@ -1,7 +1,7 @@
 import * as THREE from 'three/webgpu'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import WebGPU from 'three/addons/capabilities/WebGPU.js'
-import './styles.css'
+import './style.css'
 
 import { createParameters } from './simulation/parameters.js'
 import { createSimulation } from './simulation/createSimulation.js'
