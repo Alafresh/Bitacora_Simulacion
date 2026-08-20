@@ -6,7 +6,6 @@ import { crearModelo } from './level/model.js'
 import { createParameters } from './simulation/parameters.js'
 import { createSimulation } from './simulation/createSimulation.js'
 import { createLabPanel } from './ui/labPanel.js'
-import { attachPointerSplats, FluidSimulation } from 'three-fluid-fx'
 
 /*
 2^15: 32768
@@ -51,20 +50,6 @@ async function main() {
   renderer.setSize(innerWidth, innerHeight)
   mount.appendChild(renderer.domElement)
   await renderer.init()
-
-  // --- 1. CONFIGURAR EL FLUIDO ---
-  const fluid = new FluidSimulation(renderer, {
-    profile: 'balanced',
-    splatRadius: 0.002, // Tamaño del pincel al mover el mouse
-    splatForce: 6, // Fuerza del impulso
-    enableDye: true, // Activamos el tinte para ver colores
-  })
-
-  // Conectar los eventos del mouse al fluido con colores aleatorios
-  attachPointerSplats(renderer.domElement, fluid, { coloredStrokes: true })
-
-  // En lugar de usar un fondo sólido (#050607), pasamos el nodo del fluido al fondo de TSL
-  scene.backgroundNode = fluid.dyeNode
 
   const orbit = new OrbitControls(camera, renderer.domElement)
   orbit.enableDamping = true
@@ -234,10 +219,8 @@ async function main() {
     camera.updateProjectionMatrix()
     renderer.setSize(innerWidth, innerHeight)
     updateFrustumBounds() // <--- Agrega esta línea
-    fluid.resize(innerWidth, innerHeight)
   })
   simulation.reset()
-  fluid.resize(innerWidth, innerHeight)
   // NUEVO: Función para asignar colores al azar
   const randomizeColors = () => {
     params.colorInside.value.set(Math.random(), Math.random(), Math.random())
@@ -260,7 +243,6 @@ async function main() {
     clock.update()
     const delta = clock.getDelta()
 
-    fluid.step(delta)
     // Actualizamos la posición y animación de los 4 clones
     for (let i = 0; i < 4; i++) {
       if (dancers[i]) {
