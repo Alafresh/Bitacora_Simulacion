@@ -36,6 +36,12 @@ async function main() {
   const scene = new THREE.Scene()
   scene.background = new THREE.Color('#000000')
 
+  scene.fog = new THREE.FogExp2(0xccc, 0.025)
+
+  const grid = new THREE.GridHelper(50, 50, 0x01cdfe, 0x2a0845)
+  grid.position.y = -3.5 // Ubicada justo debajo de los bailarines y naves
+  scene.add(grid)
+
   // --- NUEVO: AGREGAR LUCES A LA ESCENA ---
   // 1. Luz ambiental para iluminar los modelos de manera general
   const ambientLight = new THREE.AmbientLight(0xb4c9fe, 1.5)
@@ -87,7 +93,6 @@ async function main() {
   updateFrustumBounds()
 
   const axes = new THREE.AxesHelper(1.5)
-  scene.add(axes)
 
   // POINTER -> WORLD POSITION --------------------------------------------
   // This is a useful camera concept: screen coordinates are not world coords.
@@ -96,12 +101,43 @@ async function main() {
   const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
   const hit = new THREE.Vector3()
 
+  let prevMousePos = new THREE.Vector3()
+  let lastPointerTime = performance.now()
+
   addEventListener('pointermove', (event) => {
     pointerNdc.x = (event.clientX / innerWidth) * 2 - 1
     pointerNdc.y = -(event.clientY / innerHeight) * 2 + 1
     raycaster.setFromCamera(pointerNdc, camera)
     if (raycaster.ray.intersectPlane(interactionPlane, hit)) {
+      const now = performance.now()
+      const dt = Math.max((now - lastPointerTime) / 1000, 0.016)
+
+      // Calculamos la velocidad en base a la distancia recorrida y el tiempo
+      const velocity = hit.clone().sub(prevMousePos).divideScalar(dt)
+      velocity.clampLength(0, 15.0) // Limitamos para que no explote la física
+
+      params.mouseVelocity.value.copy(velocity)
       params.attractor.value.copy(hit)
+
+      prevMousePos.copy(hit)
+      lastPointerTime = now
+    }
+  })
+
+  // NUEVO: Disparar Onda de Choque con Clic Izquierdo
+  addEventListener('pointerdown', (event) => {
+    if (event.button !== 0) return // Solo clic izquierdo
+    pointerNdc.x = (event.clientX / innerWidth) * 2 - 1
+    pointerNdc.y = -(event.clientY / innerHeight) * 2 + 1
+    raycaster.setFromCamera(pointerNdc, camera)
+    if (raycaster.ray.intersectPlane(interactionPlane, hit)) {
+      params.shockwaveCenter.value.copy(hit)
+      params.shockwaveStrength.value = 1000.0 // Intensidad inicial de la explosión
+      params.particleSize.value = 0.22
+      cameraTrauma = 0.5 // Pequeño temblor de cámara extra al hacer clic
+    }
+    for (let j = 0; j < 4; j++) {
+      if (naves[j]) naves[j].scale.set(0.006, 0.006, 0.006) // Escala mayor temporal
     }
   })
 
@@ -262,6 +298,30 @@ async function main() {
     const delta = clock.getDelta()
     elapsedTime += delta
     params.time.value = elapsedTime
+
+    camera.fov += (targetFov - camera.fov) * 0.1
+    camera.updateProjectionMatrix()
+
+    // 2. Aplicar Screen Shake (Temblor) y decaimiento gradual
+    if (cameraTrauma > 0.01) {
+      const shakeX = (Math.random() - 0.5) * cameraTrauma
+      const shakeY = (Math.random() - 0.5) * cameraTrauma
+      orbit.target.set(shakeX, shakeY, 0)
+      cameraTrauma *= 0.85
+    } else {
+      orbit.target.lerp(new THREE.Vector3(0, 0, 0), 0.1)
+    }
+
+    params.mouseVelocity.value.lerp(new THREE.Vector3(0, 0, 0), 0.2)
+    params.particleSize.value += (0.1 - params.particleSize.value) * 0.1
+
+    // La onda de choque decae rápidamente tras el impacto
+    if (params.shockwaveStrength.value > 0.01) {
+      params.shockwaveStrength.value *= 0.88
+    } else {
+      params.shockwaveStrength.value = 0.0
+    }
+
     // --- NUEVO: ACTUALIZAR POSICIONES DE LAS NAVES EN LA GPU ---
     if (naves[0]) params.shipPos0.value.copy(naves[0].position)
     if (naves[1]) params.shipPos1.value.copy(naves[1].position)
@@ -275,7 +335,9 @@ async function main() {
         dancers[i].model.scale.lerp(new THREE.Vector3(1, 1, 1), 0.15)
         dancers[i].mixer.update(delta)
       }
-
+      if (naves[i]) {
+        naves[i].scale.lerp(new THREE.Vector3(0.004, 0.004, 0.004), 0.15)
+      }
       if (naves[i] && dancers[i]) {
         const ghostAngle = elapsedTime * 0.6 + (i * Math.PI) / 2
         const radius = 2.2

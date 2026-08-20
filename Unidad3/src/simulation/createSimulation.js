@@ -162,6 +162,21 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
       v.mul(params.dragCoefficient).mul(params.dragEnabled).mul(-1.0),
     )
 
+    // --- 5) MOUSE VELOCITY (Pincel de Inercia / Stirring) ---
+    const toMouse = p.sub(params.attractor)
+    const mouseDist = max(toMouse.length(), 0.1)
+    const mouseFalloff = float(1.0).div(mouseDist.pow(1.5)).mul(0.8)
+    force.addAssign(params.mouseVelocity.mul(mouseFalloff))
+
+    // --- 6) SHOCKWAVE (Onda de choque por clic) ---
+    const toShock = p.sub(params.shockwaveCenter)
+    const shockDist = max(toShock.length(), 0.1)
+    const shockDir = toShock.div(shockDist)
+    const shockForce = shockDir
+      .mul(params.shockwaveStrength)
+      .div(shockDist.pow(1.5))
+    force.addAssign(shockForce)
+
     v.addAssign(force.mul(dt))
 
     const speed = v.length()

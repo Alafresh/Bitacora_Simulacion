@@ -38,5 +38,9 @@ export function createParameters() {
     shipPos2: uniform(new THREE.Vector3()),
     shipPos3: uniform(new THREE.Vector3()),
     shipInfluence: uniform(2.0),
+
+    mouseVelocity: uniform(new THREE.Vector3()),
+    shockwaveCenter: uniform(new THREE.Vector3()),
+    shockwaveStrength: uniform(0.0),
   }
 }
