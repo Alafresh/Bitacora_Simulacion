@@ -62,6 +62,22 @@ async function main() {
     count: PARTICLE_COUNT,
   })
 
+  // Calculamos el tamaño real de la pantalla en coordenadas de mundo (Z=0)
+  function updateFrustumBounds() {
+    // Pasamos el FOV de grados a radianes
+    const vFov = (camera.fov * Math.PI) / 180
+
+    // Altura = 2 * distancia * tan(fov / 2)
+    const height = 2 * Math.tan(vFov / 2) * camera.position.z
+    const width = height * camera.aspect
+
+    // Asignamos al uniform (X, Y y una profundidad Z segura)
+    params.boundsSize.value.set(width, height, 15.0)
+  }
+
+  // Lo ejecutamos al inicio
+  updateFrustumBounds()
+
   // LAB HELPERS -----------------------------------------------------------
   const attractorHelper = new THREE.Mesh(
     new THREE.SphereGeometry(0.12, 16, 12),
@@ -186,8 +202,8 @@ async function main() {
     camera.aspect = innerWidth / innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(innerWidth, innerHeight)
+    updateFrustumBounds() // <--- Agrega esta línea
   })
-
   simulation.reset()
 
   // FRAME LOOP ------------------------------------------------------------

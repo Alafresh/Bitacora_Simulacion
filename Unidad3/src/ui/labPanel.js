@@ -103,7 +103,71 @@ export function createLabPanel({
     dragCoefficient: params.dragCoefficient.value,
     windX: params.wind.value.x,
     windY: params.wind.value.y,
+    galaxyBranches: params.galaxyBranches.value, // <-- Añade esta línea
   }
+
+  // Función helper para crear un selector de color en el panel
+  function colorRow(parent, label, vectorUniform) {
+    const wrap = document.createElement('div')
+    wrap.className = 'row'
+    const lab = document.createElement('label')
+    const name = document.createElement('span')
+    name.textContent = label
+
+    const input = document.createElement('input')
+    input.type = 'color'
+
+    // Convertir el vector TSL RGB a Hex para el input html
+    const r = Math.round(vectorUniform.value.x * 255)
+      .toString(16)
+      .padStart(2, '0')
+    const g = Math.round(vectorUniform.value.y * 255)
+      .toString(16)
+      .padStart(2, '0')
+    const b = Math.round(vectorUniform.value.z * 255)
+      .toString(16)
+      .padStart(2, '0')
+    input.value = `#${r}${g}${b}`
+
+    input.addEventListener('input', (e) => {
+      // Convertir de vuelta el hex html al Vector TSL (0 a 1)
+      const hex = e.target.value
+      const rVal = parseInt(hex.slice(1, 3), 16) / 255
+      const gVal = parseInt(hex.slice(3, 5), 16) / 255
+      const bVal = parseInt(hex.slice(5, 7), 16) / 255
+      vectorUniform.value.set(rVal, gVal, bVal)
+    })
+
+    lab.append(name, input)
+    wrap.append(lab)
+    parent.append(wrap)
+
+    return {
+      input,
+      refresh() {
+        /* Podrías implementar la recarga aquí si el valor cambia externamente */
+      },
+    }
+  }
+
+  // Agregar controles de color de la galaxia
+  refreshers.push(colorRow(sim, 'Color Interior', params.colorInside))
+  refreshers.push(colorRow(sim, 'Color Exterior', params.colorOutside))
+
+  // Agregar el control del span (qué tan amplio es el gradiente de color)
+  refreshers.push(
+    rangeRow(
+      sim,
+      'Amplitud de Color',
+      { colorRadiusSpan: params.colorRadiusSpan.value },
+      'colorRadiusSpan',
+      1,
+      30,
+      0.5,
+      (v) => (params.colorRadiusSpan.value = v),
+      () => params.colorRadiusSpan.value,
+    ),
+  )
 
   refreshers.push(
     rangeRow(
@@ -249,6 +313,23 @@ export function createLabPanel({
       0.05,
       (v) => (params.wind.value.y = v),
       () => params.wind.value.y,
+    ),
+  )
+  // Ejemplo para controlar las ramas desde el panel
+  refreshers.push(
+    rangeRow(
+      sim,
+      'Ramas (Branches)',
+      state,
+      'galaxyBranches',
+      2,
+      10,
+      1,
+      (v) => {
+        params.galaxyBranches.value = v
+        onReset()
+      }, // Importante llamar a onReset para volver a calcular el Init
+      () => params.galaxyBranches.value,
     ),
   )
 
