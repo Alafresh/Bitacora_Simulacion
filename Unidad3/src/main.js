@@ -35,8 +35,23 @@ async function main() {
   // THREE.JS MENTAL MODEL: scene + camera + renderer ---------------------
   const scene = new THREE.Scene()
   scene.background = new THREE.Color('#050607')
+
+  // --- NUEVO: AGREGAR LUCES A LA ESCENA ---
+  // 1. Luz ambiental para iluminar los modelos de manera general
+  const ambientLight = new THREE.AmbientLight(0x00b3ff, 1.5)
+  scene.add(ambientLight)
+
+  // 2. Luz direccional (como un sol) para generar brillos y profundidad
+  const directionalLight = new THREE.DirectionalLight(0xff00bb, 3.0)
+  directionalLight.position.set(10, 20, 15)
+  scene.add(directionalLight)
+
   const dancers = []
-  crearModelo(scene, dancers)
+  let naveEspacial = null // Variable para guardar la referencia de la nave
+
+  crearModelo(scene, dancers, (naveCargada) => {
+    naveEspacial = naveCargada // ¡Listo! La nave ya está en la escena y se puede animar
+  })
   const camera = new THREE.PerspectiveCamera(
     50,
     innerWidth / innerHeight,
@@ -157,16 +172,10 @@ async function main() {
     panel?.refresh()
   }
 
+  // Actualiza tu setMode para gestionar la cámara
   const setMode = (next) => {
     mode = next
-    const lab = mode === 'LAB'
-    panel.setVisible(lab)
-    axes.visible = lab
-    //orbit.enabled = lab;
-    hud.innerHTML = lab
-      ? '<strong>LAB</strong> · P: performance · R: reset · 1–5: pruebas'
-      : //: '<strong>PERFORMANCE</strong> · P: lab · espacio: invertir radial · puntero: atractor';
-        ''
+    camera.position.set(0, 0, 11) // Volvemos a la vista de LAB
   }
 
   panel = createLabPanel({
@@ -194,7 +203,6 @@ async function main() {
     if (event.code === 'Digit3') applyPreset('attract')
     if (event.code === 'Digit4') applyPreset('repel')
     if (event.code === 'Digit5') applyPreset('vortex')
-
     if (event.code === 'Space') {
       event.preventDefault()
       //savedRadialStrength = params.radialStrength.value || 2.0;
@@ -221,10 +229,27 @@ async function main() {
     updateFrustumBounds() // <--- Agrega esta línea
   })
   simulation.reset()
-  // NUEVO: Función para asignar colores al azar
+
+  // --- SISTEMA DE GAME FEEL / JUICE ---
+  let cameraTrauma = 0
+  let targetFov = 50
+  const targetColorInside = new THREE.Vector3(1.0, 0.376, 0.188)
+  const targetColorOutside = new THREE.Vector3(0.106, 0.224, 0.518)
+
   const randomizeColors = () => {
-    params.colorInside.value.set(Math.random(), Math.random(), Math.random())
-    params.colorOutside.value.set(Math.random(), Math.random(), Math.random())
+    targetColorInside.set(Math.random(), Math.random(), Math.random())
+    targetColorOutside.set(Math.random(), Math.random(), Math.random())
+
+    cameraTrauma = 0.8
+    camera.fov = 35
+    camera.updateProjectionMatrix()
+
+    for (let i = 0; i < 4; i++) {
+      if (dancers[i] && dancers[i].model) {
+        // CORRECCIÓN: Apuntamos al .model
+        dancers[i].model.scale.set(0.2, 1.8, 0.2)
+      }
+    }
   }
 
   // Arreglo de posiciones objetivo (Vector3) para cada uno de los 4 modelos
@@ -235,20 +260,37 @@ async function main() {
     new THREE.Vector3(),
   ]
 
+  // Usamos el Timer importado
   const clock = new THREE.Timer()
 
   // FRAME LOOP ------------------------------------------------------------
-  // FRAME LOOP ------------------------------------------------------------
   renderer.setAnimationLoop(() => {
-    clock.update()
+    clock.update() // Timer REQUIERE que llames a update() al inicio del loop
     const delta = clock.getDelta()
 
-    // Actualizamos la posición y animación de los 4 clones
+    // --- 1. RESOLVER FEEDBACKS DE CÁMARA ---
+    camera.fov += (targetFov - camera.fov) * 0.1
+    camera.updateProjectionMatrix()
+
+    if (cameraTrauma > 0.01) {
+      const shakeX = (Math.random() - 0.5) * cameraTrauma
+      const shakeY = (Math.random() - 0.5) * cameraTrauma
+      orbit.target.set(shakeX, shakeY, 0)
+      cameraTrauma *= 0.85
+    } else {
+      orbit.target.lerp(new THREE.Vector3(0, 0, 0), 0.1)
+    }
+
+    // --- 2. TRANSICIÓN DE COLORES ---
+    params.colorInside.value.lerp(targetColorInside, 0.05)
+    params.colorOutside.value.lerp(targetColorOutside, 0.05)
+
+    // --- 3. ACTUALIZAR MODELOS ---
     for (let i = 0; i < 4; i++) {
-      if (dancers[i]) {
-        // Interpolación suave hacia su objetivo correspondiente
-        dancers[i].position.lerp(dancerTargets[i], 0.05)
-        // Avanzar la animación de cada clon
+      if (dancers[i] && dancers[i].model) {
+        // CORRECCIÓN: Usamos .model.position y .model.scale
+        dancers[i].model.position.lerp(dancerTargets[i], 0.05)
+        dancers[i].model.scale.lerp(new THREE.Vector3(1, 1, 1), 0.15)
         dancers[i].mixer.update(delta)
       }
     }
