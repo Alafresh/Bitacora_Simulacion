@@ -42,11 +42,9 @@ async function main() {
   scene.add(ambientLight)
 
   const dancers = []
-  let naveEspacial = null // Variable para guardar la referencia de la nave
+  const naves = [] // Arreglo para las 4 naves
+  crearModelo(scene, dancers, naves)
 
-  crearModelo(scene, dancers, (naveCargada) => {
-    naveEspacial = naveCargada // ¡Listo! La nave ya está en la escena y se puede animar
-  })
   const camera = new THREE.PerspectiveCamera(
     50,
     innerWidth / innerHeight,
@@ -258,12 +256,14 @@ async function main() {
   // Usamos el Timer importado
   const clock = new THREE.Timer()
 
-  // FRAME LOOP ------------------------------------------------------------
-  renderer.setAnimationLoop(() => {
-    clock.update() // Timer REQUIERE que llames a update() al inicio del loop
-    const delta = clock.getDelta()
+  let elapsedTime = 0 // Variable para controlar el tiempo de las órbitas
 
-    // --- 1. RESOLVER FEEDBACKS DE CÁMARA ---
+  renderer.setAnimationLoop(() => {
+    clock.update()
+    const delta = clock.getDelta()
+    elapsedTime += delta // Acumulamos el tiempo transcurrido
+
+    // 1. Resolver feedbacks de cámara (Screen Shake y FOV)
     camera.fov += (targetFov - camera.fov) * 0.1
     camera.updateProjectionMatrix()
 
@@ -276,17 +276,48 @@ async function main() {
       orbit.target.lerp(new THREE.Vector3(0, 0, 0), 0.1)
     }
 
-    // --- 2. TRANSICIÓN DE COLORES ---
+    // 2. Transición suave de colores
     params.colorInside.value.lerp(targetColorInside, 0.05)
     params.colorOutside.value.lerp(targetColorOutside, 0.05)
 
-    // --- 3. ACTUALIZAR MODELOS ---
+    // 3. Actualizar bailarinas y hacer que las naves las orbiten
     for (let i = 0; i < 4; i++) {
       if (dancers[i] && dancers[i].model) {
-        // CORRECCIÓN: Usamos .model.position y .model.scale
         dancers[i].model.position.lerp(dancerTargets[i], 0.05)
         dancers[i].model.scale.lerp(new THREE.Vector3(1, 1, 1), 0.15)
         dancers[i].mixer.update(delta)
+      }
+
+      // Lógica de órbita con tu fórmula aplicada a cada nave respecto a su bailarina
+      if (naves[i] && dancers[i]) {
+        // Desfasamos el ángulo (i * Math.PI / 2) para que no vayan montadas en la misma posición
+        const ghostAngle = elapsedTime * 0.6 + (i * Math.PI) / 2
+
+        const radius = 2.2 // Distancia de órbita alrededor de la bailarina
+        const xOffset = Math.cos(ghostAngle) * radius
+        const zOffset = Math.sin(ghostAngle) * radius
+        const yOffset =
+          Math.sin(ghostAngle) *
+          Math.sin(ghostAngle * 2.34) *
+          Math.sin(ghostAngle * 2.45) *
+          1.2
+
+        // Posición base de la bailarina + el desplazamiento orbital matemático
+        const targetPos = dancers[i].model.position
+          .clone()
+          .add(new THREE.Vector3(xOffset, yOffset, zOffset))
+
+        // Movimiento suave hacia la posición calculada
+        naves[i].position.lerp(targetPos, 0.1)
+
+        // Opcional: Orientar la nave sutilmente hacia adelante en su trayectoria
+        naves[i].lookAt(
+          targetPos
+            .clone()
+            .add(
+              new THREE.Vector3(-Math.sin(ghostAngle), 0, Math.cos(ghostAngle)),
+            ),
+        )
       }
     }
 
