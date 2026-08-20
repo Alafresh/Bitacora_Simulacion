@@ -20,7 +20,12 @@ import {
   pow,
   sign,
   length,
+  texture,
 } from 'three/tsl'
+
+const textureLoader = new THREE.TextureLoader()
+const particleTexture = textureLoader.load('/9.png')
+particleTexture.colorSpace = THREE.SRGBColorSpace
 
 export function createSimulation({ renderer, scene, params, count = 131072 }) {
   // STATE -----------------------------------------------------------------
@@ -138,33 +143,36 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
     .setName('Update Particles')
 
   // RENDER ---------------------------------------------------------------
-  // Rendering does not recompute the physics. It consumes the GPU state.
   const material = new THREE.SpriteNodeMaterial({
     blending: THREE.AdditiveBlending,
     depthWrite: false,
+    depthTest: true,
     transparent: true,
   })
 
   material.positionNode = positionBuffer.toAttribute()
   material.scaleNode = params.particleSize
 
-  // RENDER ---------------------------------------------------------------
+  // NUEVO: Color 100% aleatorio e individual por partícula
   material.colorNode = Fn(() => {
-    // Usamos el instanceIndex original sin forzarlo a float
     const i = instanceIndex
-    const randRadius = hash(i.add(uint(11)))
 
-    const inside = vec3(params.colorInside)
-    const outside = vec3(params.colorOutside)
+    // Generamos 3 semillas distintas usando el índice único de cada partícula
+    const r = hash(i.add(uint(101))) // Canal Rojo
+    const g = hash(i.add(uint(203))) // Canal Verde
+    const b = hash(i.add(uint(307))) // Canal Azul
 
-    // El gradiente es estructural y no se daña aunque las partículas se muevan
-    const mixedRGB = mix(inside, outside, randRadius)
+    const randomColor = vec3(r, g, b)
 
-    return vec4(mixedRGB, 1.0)
+    // Muestreamos la textura PNG
+    const tex = texture(particleTexture, uv())
+
+    // Multiplicamos el color único de la partícula por la textura
+    return vec4(randomColor.mul(tex.rgb), tex.a)
   })()
 
-  // Circular sprite mask, avoiding visible square planes.
-  material.opacityNode = step(uv().xy.sub(0.5).length(), 0.5)
+  // Aplicamos la transparencia de tu textura PNG
+  material.opacityNode = texture(particleTexture, uv()).a
 
   const geometry = new THREE.PlaneGeometry(1, 1)
   const mesh = new THREE.InstancedMesh(geometry, material, count)

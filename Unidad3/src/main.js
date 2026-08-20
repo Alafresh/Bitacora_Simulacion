@@ -34,7 +34,7 @@ async function main() {
 
   // THREE.JS MENTAL MODEL: scene + camera + renderer ---------------------
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color('#3b3e45')
+  scene.background = new THREE.Color('#000000')
 
   // --- NUEVO: AGREGAR LUCES A LA ESCENA ---
   // 1. Luz ambiental para iluminar los modelos de manera general
@@ -230,16 +230,13 @@ async function main() {
   const targetColorOutside = new THREE.Vector3(0.106, 0.224, 0.518)
 
   const randomizeColors = () => {
-    targetColorInside.set(Math.random(), Math.random(), Math.random())
-    targetColorOutside.set(Math.random(), Math.random(), Math.random())
-
+    // Mantendremos solo los efectos de impacto (Screen Shake / FOV Punch / Pop)
     cameraTrauma = 0.8
     camera.fov = 35
     camera.updateProjectionMatrix()
 
     for (let i = 0; i < 4; i++) {
       if (dancers[i] && dancers[i].model) {
-        // CORRECCIÓN: Apuntamos al .model
         dancers[i].model.scale.set(0.2, 1.8, 0.2)
       }
     }

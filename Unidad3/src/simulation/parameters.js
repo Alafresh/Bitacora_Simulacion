@@ -6,11 +6,11 @@ import { uniform } from 'three/tsl'
 export function createParameters() {
   return {
     dt: uniform(1 / 60),
-    timeScale: uniform(1.0),
+    timeScale: uniform(0.5),
     initialSpeed: uniform(0.35),
     maxSpeed: uniform(5.0),
     boundsSize: uniform(new THREE.Vector3(10.0, 10.0, 10.0)),
-    particleSize: uniform(0.02),
+    particleSize: uniform(0.1),
 
     windEnabled: uniform(0.0),
     wind: uniform(new THREE.Vector3(0.0, 0.0, 0.0)),
