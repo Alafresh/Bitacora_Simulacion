@@ -58,6 +58,8 @@ Interpretaremos esta pieza musical
 
 Esta cancion me saca de mi mundo y me transporta a otro universo me da vibras de futurismo y progreso, El concepto que decidi tomar partes del synthwave y agregarlos a mi visualizador, las particulas les agregue una textura de estrella y las organice en forma de galaxia tambien añadi una mujer bailando la cual esta farmeando aura y tiene toques de holograma mientras giran alrededor una nave espacial
 
+[Imagen](./gifs/Holograma.png)
+
 ## 📌 Actividad 04: Presentacion
 
 [Despliegue Visualizador de fuerzas](https://bitacora-simulacion.vercel.app/)
