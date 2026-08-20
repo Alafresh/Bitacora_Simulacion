@@ -72,9 +72,11 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
     const scatterX = pow(randX, params.randomnessPower)
       .mul(params.randomness)
       .mul(sign(randX.sub(0.5)))
+      .mul(3.5)
     const scatterY = pow(randY, params.randomnessPower)
       .mul(params.randomness)
       .mul(sign(randY.sub(0.5)))
+      .mul(3.5)
     const scatterZ = pow(randZ, params.randomnessPower)
       .mul(params.randomness)
       .mul(sign(randZ.sub(0.5)))
@@ -101,7 +103,7 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
     // 1) CONSTANT / WIND FORCE
     force.addAssign(params.wind.mul(params.windEnabled))
 
-    // 2) RADIAL FORCE (positive = attraction, negative = repulsion)
+    // 2) RADIAL FORCE (Atractor central del mouse)
     const toAttractor = params.attractor.sub(p)
     const distance = max(toAttractor.length(), params.softening)
     const radialDirection = toAttractor.div(distance)
@@ -111,20 +113,55 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
       .mul(params.radialEnabled)
     force.addAssign(radialForce)
 
-    // 3) VORTEX FORCE: tangent to the radial direction around Z.
+    // --- NUEVO: FUERZA LOCAL DE CADA UNA DE LAS 4 NAVES ---
+    // Creamos una función interna para calcular la influencia de cada nave sobre la partícula
+    const applyShipForce = (shipPos) => {
+      const toShip = shipPos.sub(p)
+      const shipDist = max(toShip.length(), params.softening)
+      const shipDir = toShip.div(shipDist)
+
+      const effectiveStrength = float(0.0).toVar()
+
+      // Evaluamos el estado global de la fuerza radial
+      If(params.radialStrength.lessThan(0.0), () => {
+        // SI ES REPELIR (< 0): Las naves ATRAEN (fuerza positiva absoluta)
+        // para formar mini-galaxias a su alrededor.
+        effectiveStrength.assign(params.radialStrength.abs())
+      }).Else(() => {
+        // SI ES ATRAER (> 0): Las naves REPELEN con un pulso oscilante (senoidal)
+        const oscillation = sin(params.time.mul(6.0)).mul(0.8).add(0.2) // Varía rítmicamente
+        effectiveStrength.assign(
+          params.radialStrength.negate().mul(oscillation),
+        )
+      })
+
+      const shipForce = shipDir
+        .mul(effectiveStrength)
+        .div(shipDist.pow(2))
+        .mul(params.shipInfluence)
+        .mul(params.radialEnabled)
+
+      force.addAssign(shipForce)
+    }
+
+    applyShipForce(params.shipPos0)
+    applyShipForce(params.shipPos1)
+    applyShipForce(params.shipPos2)
+    applyShipForce(params.shipPos3)
+    // -----------------------------------------------------
+
+    // 3) VORTEX FORCE
     const zAxis = vec3(0.0, 0.0, 1.0)
     const tangent = zAxis.cross(radialDirection)
     force.addAssign(
       tangent.mul(params.vortexStrength).mul(params.vortexEnabled),
     )
 
-    // 4) LINEAR DRAG: F = -c v
+    // 4) LINEAR DRAG
     force.addAssign(
       v.mul(params.dragCoefficient).mul(params.dragEnabled).mul(-1.0),
     )
 
-    // INTEGRATION ---------------------------------------------------------
-    // Unit mass: a = F. Semi-implicit Euler: update v, then p.
     v.addAssign(force.mul(dt))
 
     const speed = v.length()
@@ -132,10 +169,9 @@ export function createSimulation({ renderer, scene, params, count = 131072 }) {
       v.assign(v.normalize().mul(params.maxSpeed))
     })
 
-    // ¡ESTA ES LA LÍNEA QUE FALTABA!
     p.addAssign(v.mul(dt))
 
-    // Teletransportación perfecta alineada a los bordes de la cámara
+    // Teletransportación perfecta alineada a los bordes y límites aumentados
     const half = params.boundsSize.mul(0.5)
     p.assign(mod(p.add(half), params.boundsSize).sub(half))
   })()

@@ -73,15 +73,14 @@ async function main() {
 
   // Calculamos el tamaño real de la pantalla en coordenadas de mundo (Z=0)
   function updateFrustumBounds() {
-    // Pasamos el FOV de grados a radianes
     const vFov = (camera.fov * Math.PI) / 180
 
-    // Altura = 2 * distancia * tan(fov / 2)
     const height = 2 * Math.tan(vFov / 2) * camera.position.z
     const width = height * camera.aspect
 
-    // Asignamos al uniform (X, Y y una profundidad Z segura)
-    params.boundsSize.value.set(width, height, 15.0)
+    const scaleFactor = 2
+
+    params.boundsSize.value.set(width * scaleFactor, height * scaleFactor, 25.0)
   }
 
   // Lo ejecutamos al inicio
@@ -165,10 +164,16 @@ async function main() {
     panel?.refresh()
   }
 
-  // Actualiza tu setMode para gestionar la cámara
+  // Actualiza el setMode para gestionar la visibilidad del panel y el HUD
   const setMode = (next) => {
     mode = next
-    camera.position.set(0, 0, 11) // Volvemos a la vista de LAB
+    const lab = mode === 'LAB'
+
+    // Oculta o muestra el panel Synthwave y los ejes según el modo
+    panel.setVisible(lab)
+    axes.visible = lab
+
+    camera.position.set(0, 0, 11) // Vista estándar
   }
 
   panel = createLabPanel({
@@ -179,9 +184,6 @@ async function main() {
     onPauseChange: () => (paused = !paused),
   })
 
-  const hud = document.createElement('div')
-  hud.className = 'hud'
-  document.body.append(hud)
   setMode('LAB')
 
   // BASELINE LIVE INSTRUMENT MAPPING -------------------------------------
@@ -258,26 +260,15 @@ async function main() {
   renderer.setAnimationLoop(() => {
     clock.update()
     const delta = clock.getDelta()
-    elapsedTime += delta // Acumulamos el tiempo transcurrido
+    elapsedTime += delta
+    params.time.value = elapsedTime
+    // --- NUEVO: ACTUALIZAR POSICIONES DE LAS NAVES EN LA GPU ---
+    if (naves[0]) params.shipPos0.value.copy(naves[0].position)
+    if (naves[1]) params.shipPos1.value.copy(naves[1].position)
+    if (naves[2]) params.shipPos2.value.copy(naves[2].position)
+    if (naves[3]) params.shipPos3.value.copy(naves[3].position)
 
-    // 1. Resolver feedbacks de cámara (Screen Shake y FOV)
-    camera.fov += (targetFov - camera.fov) * 0.1
-    camera.updateProjectionMatrix()
-
-    if (cameraTrauma > 0.01) {
-      const shakeX = (Math.random() - 0.5) * cameraTrauma
-      const shakeY = (Math.random() - 0.5) * cameraTrauma
-      orbit.target.set(shakeX, shakeY, 0)
-      cameraTrauma *= 0.85
-    } else {
-      orbit.target.lerp(new THREE.Vector3(0, 0, 0), 0.1)
-    }
-
-    // 2. Transición suave de colores
-    params.colorInside.value.lerp(targetColorInside, 0.05)
-    params.colorOutside.value.lerp(targetColorOutside, 0.05)
-
-    // 3. Actualizar bailarinas y hacer que las naves las orbiten
+    // Actualizamos la posición y animación de los 4 bailarines y las órbitas de las naves
     for (let i = 0; i < 4; i++) {
       if (dancers[i] && dancers[i].model) {
         dancers[i].model.position.lerp(dancerTargets[i], 0.05)
@@ -285,12 +276,9 @@ async function main() {
         dancers[i].mixer.update(delta)
       }
 
-      // Lógica de órbita con tu fórmula aplicada a cada nave respecto a su bailarina
       if (naves[i] && dancers[i]) {
-        // Desfasamos el ángulo (i * Math.PI / 2) para que no vayan montadas en la misma posición
         const ghostAngle = elapsedTime * 0.6 + (i * Math.PI) / 2
-
-        const radius = 2.2 // Distancia de órbita alrededor de la bailarina
+        const radius = 2.2
         const xOffset = Math.cos(ghostAngle) * radius
         const zOffset = Math.sin(ghostAngle) * radius
         const yOffset =
@@ -299,15 +287,10 @@ async function main() {
           Math.sin(ghostAngle * 2.45) *
           1.2
 
-        // Posición base de la bailarina + el desplazamiento orbital matemático
         const targetPos = dancers[i].model.position
           .clone()
           .add(new THREE.Vector3(xOffset, yOffset, zOffset))
-
-        // Movimiento suave hacia la posición calculada
         naves[i].position.lerp(targetPos, 0.1)
-
-        // Opcional: Orientar la nave sutilmente hacia adelante en su trayectoria
         naves[i].lookAt(
           targetPos
             .clone()

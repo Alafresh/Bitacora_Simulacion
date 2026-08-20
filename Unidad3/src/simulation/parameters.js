@@ -1,12 +1,11 @@
 import * as THREE from 'three/webgpu'
 import { uniform } from 'three/tsl'
 
-// Uniforms are CPU-side values that TSL exposes to the GPU.
-// Changing .value does not rebuild the compute shader.
 export function createParameters() {
   return {
     dt: uniform(1 / 60),
     timeScale: uniform(0.5),
+    time: uniform(0.0),
     initialSpeed: uniform(0.35),
     maxSpeed: uniform(5.0),
     boundsSize: uniform(new THREE.Vector3(10.0, 10.0, 10.0)),
@@ -31,14 +30,13 @@ export function createParameters() {
     galaxySpin: uniform(1.0),
     randomness: uniform(0.2),
     randomnessPower: uniform(3.0),
-
-    // NUEVO: Colores de la galaxia (convertidos a Vectores RGB)
-    // El insideColor inicial '#ff0000'
-    colorInside: uniform(new THREE.Vector3(1.0, 0.376, 0.188)),
-    // El outsideColor inicial '#1b3984'
-    colorOutside: uniform(new THREE.Vector3(0.106, 0.224, 0.518)),
-
-    // Un multiplicador para controlar qué tan rápido ocurre la transición de color
     colorRadiusSpan: uniform(8.0),
+
+    // --- NUEVO: POSICIONES E INFLUENCIA DE LAS 4 NAVES ---
+    shipPos0: uniform(new THREE.Vector3()),
+    shipPos1: uniform(new THREE.Vector3()),
+    shipPos2: uniform(new THREE.Vector3()),
+    shipPos3: uniform(new THREE.Vector3()),
+    shipInfluence: uniform(2.0),
   }
 }
