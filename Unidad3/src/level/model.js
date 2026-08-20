@@ -2,30 +2,26 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js'
 
-export const crearModelo = (scene, dancersArray, onNaveLoaded) => {
+export const crearModelo = (scene, dancersArray, navesArray) => {
   const loader = new GLTFLoader()
 
-  // 1. Cargar los 4 bailarines (/bailando.glb)[cite: 11]
+  // 1. Cargar las 4 bailarinas (/bailando.glb)[cite: 11]
   loader.load(
     '/bailando.glb',
     (gltf) => {
       const originalScene = gltf.scene
       const animations = gltf.animations
 
-      // Crear 4 clones del modelo original[cite: 11]
       for (let i = 0; i < 4; i++) {
         const clone = SkeletonUtils.clone(originalScene)
         scene.add(clone)
 
-        // Mixer independiente para cada clon[cite: 11]
         const mixer = new THREE.AnimationMixer(clone)
-
         if (animations.length > 0) {
           const action = mixer.clipAction(animations[0])
           action.play()
         }
 
-        // Guardamos el clon, su mixer y su referencia en el arreglo[cite: 11]
         dancersArray.push({
           model: clone,
           mixer: mixer,
@@ -39,20 +35,29 @@ export const crearModelo = (scene, dancersArray, onNaveLoaded) => {
     },
   )
 
-  // 2. Cargar la nueva nave espacial (/Nave1.glb)
+  // 2. Cargar y clonar las 4 naves (/Nave1.glb)
   loader.load(
     '/Nave1.glb',
     (gltf) => {
-      const nave = gltf.scene
-      // Posición inicial en el espacio fuera del centro
-      nave.position.set(2, 5, 0)
-      nave.scale.set(0.005, 0.005, 0.005) // Ajusta si la escala del modelo es muy grande o pequeña
+      const originalNave = gltf.scene
 
-      scene.add(nave)
+      for (let i = 0; i < 4; i++) {
+        const naveClone = SkeletonUtils.clone(originalNave)
+        naveClone.scale.set(0.004, 0.004, 0.004) // Ajusta la escala si sigue muy grande/pequeña
 
-      // Si pasamos una función, enviamos la nave lista a main.js
-      if (onNaveLoaded) {
-        onNaveLoaded(nave)
+        // Asegurar el espacio de color correcto en WebGPU
+        naveClone.traverse((child) => {
+          if (child.isMesh && child.material) {
+            if (child.material.map)
+              child.material.map.colorSpace = THREE.SRGBColorSpace
+            if (child.material.emissiveMap)
+              child.material.emissiveMap.colorSpace = THREE.SRGBColorSpace
+            child.material.needsUpdate = true
+          }
+        })
+
+        scene.add(naveClone)
+        navesArray.push(naveClone)
       }
     },
     undefined,

@@ -34,17 +34,12 @@ async function main() {
 
   // THREE.JS MENTAL MODEL: scene + camera + renderer ---------------------
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color('#050607')
+  scene.background = new THREE.Color('#3b3e45')
 
   // --- NUEVO: AGREGAR LUCES A LA ESCENA ---
   // 1. Luz ambiental para iluminar los modelos de manera general
-  const ambientLight = new THREE.AmbientLight(0x00b3ff, 1.5)
+  const ambientLight = new THREE.AmbientLight(0xb4c9fe, 1.5)
   scene.add(ambientLight)
-
-  // 2. Luz direccional (como un sol) para generar brillos y profundidad
-  const directionalLight = new THREE.DirectionalLight(0xff00bb, 3.0)
-  directionalLight.position.set(10, 20, 15)
-  scene.add(directionalLight)
 
   const dancers = []
   let naveEspacial = null // Variable para guardar la referencia de la nave
