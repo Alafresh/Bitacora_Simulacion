@@ -133,11 +133,11 @@ async function main() {
     if (raycaster.ray.intersectPlane(interactionPlane, hit)) {
       params.shockwaveCenter.value.copy(hit)
       params.shockwaveStrength.value = 1000.0 // Intensidad inicial de la explosión
-      params.particleSize.value = 0.22
+      params.particleSize.value = 0.32
       cameraTrauma = 0.5 // Pequeño temblor de cámara extra al hacer clic
     }
     for (let j = 0; j < 4; j++) {
-      if (naves[j]) naves[j].scale.set(0.006, 0.006, 0.006) // Escala mayor temporal
+      if (naves[j]) naves[j].scale.set(0.007, 0.007, 0.007) // Escala mayor temporal
     }
   })
 
