@@ -2,7 +2,7 @@ import * as THREE from 'three/webgpu'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import WebGPU from 'three/addons/capabilities/WebGPU.js'
 import './style.css'
-
+import { crearModelo } from './level/model.js'
 import { createParameters } from './simulation/parameters.js'
 import { createSimulation } from './simulation/createSimulation.js'
 import { createLabPanel } from './ui/labPanel.js'
@@ -35,7 +35,7 @@ async function main() {
   // THREE.JS MENTAL MODEL: scene + camera + renderer ---------------------
   const scene = new THREE.Scene()
   scene.background = new THREE.Color('#050607')
-
+  let estadoModelo = crearModelo(scene)
   const camera = new THREE.PerspectiveCamera(
     50,
     innerWidth / innerHeight,
