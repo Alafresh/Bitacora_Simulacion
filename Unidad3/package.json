@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^8.2.0"
+  },
+  "dependencies": {
+    "three-fluid-fx": "^0.1.0"
   }
 }

@@ -1,58 +1,41 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+// NUEVO: Importamos SkeletonUtils para clonar modelos animados
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js'
 
-export const crearModelo = (scene) => {
+export const crearModelo = (scene, dancersArray) => {
   const loader = new GLTFLoader()
 
-  const estado = { mixer: null }
-
-  const dinoMaterials = { face: null, body: null }
-
-  let animations = []
-
-  // * Carga De Modelos y Obtener Materiales
   loader.load(
     '/bailando.glb',
     (gltf) => {
-      console.log(gltf)
-      scene.add(gltf.scene)
-      // Mixer para animaciones
-      estado.mixer = new THREE.AnimationMixer(gltf.scene)
+      const originalScene = gltf.scene
+      const animations = gltf.animations
 
-      animations = gltf.animations
-      // Animaciones
-      if (animations.length > 0) {
-        // const action = estado.mixer.clipAction(gltf.animations[2]);
-        // action.play();
-        modelParams.animUpdate()
-      }
+      // Crear 4 clones del modelo original
+      for (let i = 0; i < 4; i++) {
+        const clone = SkeletonUtils.clone(originalScene)
+        scene.add(clone)
 
-      gltf.scene.traverse((node) => {
-        if (node.isMesh) {
-          // Obtener materiales
-          const materials = Array.isArray(node.material)
-            ? node.material
-            : [node.material]
+        // Mixer independiente para cada clon
+        const mixer = new THREE.AnimationMixer(clone)
 
-          materials.forEach((mat) => {
-            if (mat.name.includes('M_Face_01')) {
-              //console.log(`Material: ${mat.name} | Textura: ${mat.map.name}`);
-              dinoMaterials.face = mat
-            }
-            if (mat.name.includes('M_Dino_Shark_00')) {
-              dinoMaterials.body = mat
-            }
-          })
+        if (animations.length > 0) {
+          const action = mixer.clipAction(animations[0])
+          action.play()
         }
-      })
+
+        // Guardamos el clon, su mixer y su referencia de posición en el arreglo
+        dancersArray.push({
+          model: clone,
+          mixer: mixer,
+          position: clone.position,
+        })
+      }
     },
-    () => {
-      // console.log('progress');
-    },
+    undefined,
     (error) => {
       console.log('Error cargando..:', error)
     },
   )
-
-  return estado
 }

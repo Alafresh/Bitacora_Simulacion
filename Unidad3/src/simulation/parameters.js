@@ -10,7 +10,7 @@ export function createParameters() {
     initialSpeed: uniform(0.35),
     maxSpeed: uniform(5.0),
     boundsSize: uniform(new THREE.Vector3(10.0, 10.0, 10.0)),
-    particleSize: uniform(0.035),
+    particleSize: uniform(0.02),
 
     windEnabled: uniform(0.0),
     wind: uniform(new THREE.Vector3(0.0, 0.0, 0.0)),
@@ -33,7 +33,7 @@ export function createParameters() {
     randomnessPower: uniform(3.0),
 
     // NUEVO: Colores de la galaxia (convertidos a Vectores RGB)
-    // El insideColor inicial '#ff6030'
+    // El insideColor inicial '#ff0000'
     colorInside: uniform(new THREE.Vector3(1.0, 0.376, 0.188)),
     // El outsideColor inicial '#1b3984'
     colorOutside: uniform(new THREE.Vector3(0.106, 0.224, 0.518)),

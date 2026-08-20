@@ -6,6 +6,7 @@ import { crearModelo } from './level/model.js'
 import { createParameters } from './simulation/parameters.js'
 import { createSimulation } from './simulation/createSimulation.js'
 import { createLabPanel } from './ui/labPanel.js'
+import { attachPointerSplats, FluidSimulation } from 'three-fluid-fx'
 
 /*
 2^15: 32768
@@ -35,7 +36,8 @@ async function main() {
   // THREE.JS MENTAL MODEL: scene + camera + renderer ---------------------
   const scene = new THREE.Scene()
   scene.background = new THREE.Color('#050607')
-  let estadoModelo = crearModelo(scene)
+  const dancers = []
+  crearModelo(scene, dancers)
   const camera = new THREE.PerspectiveCamera(
     50,
     innerWidth / innerHeight,
@@ -49,6 +51,20 @@ async function main() {
   renderer.setSize(innerWidth, innerHeight)
   mount.appendChild(renderer.domElement)
   await renderer.init()
+
+  // --- 1. CONFIGURAR EL FLUIDO ---
+  const fluid = new FluidSimulation(renderer, {
+    profile: 'balanced',
+    splatRadius: 0.002, // Tamaño del pincel al mover el mouse
+    splatForce: 6, // Fuerza del impulso
+    enableDye: true, // Activamos el tinte para ver colores
+  })
+
+  // Conectar los eventos del mouse al fluido con colores aleatorios
+  attachPointerSplats(renderer.domElement, fluid, { coloredStrokes: true })
+
+  // En lugar de usar un fondo sólido (#050607), pasamos el nodo del fluido al fondo de TSL
+  scene.backgroundNode = fluid.dyeNode
 
   const orbit = new OrbitControls(camera, renderer.domElement)
   orbit.enableDamping = true
@@ -78,12 +94,6 @@ async function main() {
   // Lo ejecutamos al inicio
   updateFrustumBounds()
 
-  // LAB HELPERS -----------------------------------------------------------
-  const attractorHelper = new THREE.Mesh(
-    new THREE.SphereGeometry(0.12, 16, 12),
-    new THREE.MeshBasicMaterial({ color: '#ffffff' }),
-  )
-  scene.add(attractorHelper)
   const axes = new THREE.AxesHelper(1.5)
   scene.add(axes)
 
@@ -100,7 +110,6 @@ async function main() {
     raycaster.setFromCamera(pointerNdc, camera)
     if (raycaster.ray.intersectPlane(interactionPlane, hit)) {
       params.attractor.value.copy(hit)
-      attractorHelper.position.copy(hit)
     }
   })
 
@@ -117,18 +126,34 @@ async function main() {
     params.dragEnabled.value = 0
     params.wind.value.set(0, 0, 0)
     params.initialSpeed.value = 0
+    const halfW = params.boundsSize.value.x / 2
+    const halfH = params.boundsSize.value.y / 2
 
     if (id === 'inertia') {
       params.initialSpeed.value = 0.8
+      dancerTargets[0].set(-halfW, halfH, 0) // Arriba Izquierda
+      dancerTargets[1].set(halfW, halfH, 0) // Arriba Derecha
+      dancerTargets[2].set(-halfW, -halfH, 0) // Abajo Izquierda
+      dancerTargets[3].set(halfW, -halfH, 0) // Abajo Derecha
     } else if (id === 'wind') {
       params.windEnabled.value = 1
       params.wind.value.set(1.5, 0, 0)
+      // FORMACIÓN: CONTRA LA PARED (El viento los empuja al borde derecho)
+      dancerTargets[0].set(halfW, halfH * 0.75, 0)
+      dancerTargets[1].set(halfW, halfH * 0.25, 0)
+      dancerTargets[2].set(halfW, -halfH * 0.25, 0)
+      dancerTargets[3].set(halfW, -halfH * 0.75, 0)
     } else if (id === 'attract') {
       params.radialEnabled.value = 1
       params.radialStrength.value = 3.0
+      dancerTargets.forEach((target) => target.set(0, 0, 0))
     } else if (id === 'repel') {
       params.radialEnabled.value = 1
       params.radialStrength.value = -3.0
+      dancerTargets[0].set(-halfW, halfH, 0) // Arriba Izquierda
+      dancerTargets[1].set(halfW, halfH, 0) // Arriba Derecha
+      dancerTargets[2].set(-halfW, -halfH, 0) // Abajo Izquierda
+      dancerTargets[3].set(halfW, -halfH, 0) // Abajo Derecha
     } else if (id === 'vortex') {
       params.radialEnabled.value = 1
       params.radialStrength.value = 1.0
@@ -136,7 +161,13 @@ async function main() {
       params.vortexStrength.value = 3.0
       params.dragEnabled.value = 1
       params.dragCoefficient.value = 0.08
+      const offset = 2.0
+      dancerTargets[0].set(0, offset, 0)
+      dancerTargets[1].set(offset, 0, 0)
+      dancerTargets[2].set(0, -offset, 0)
+      dancerTargets[3].set(-offset, 0, 0)
     }
+    randomizeColors()
     simulation.reset()
     panel?.refresh()
   }
@@ -146,7 +177,6 @@ async function main() {
     const lab = mode === 'LAB'
     panel.setVisible(lab)
     axes.visible = lab
-    attractorHelper.visible = lab
     //orbit.enabled = lab;
     hud.innerHTML = lab
       ? '<strong>LAB</strong> · P: performance · R: reset · 1–5: pruebas'
@@ -188,6 +218,7 @@ async function main() {
       params.radialEnabled.value = 1
       params.radialStrength.value = -(savedRadialStrength || 2.0)
       //console.log('radial inverted', params.radialStrength.value);
+      randomizeColors()
     }
   })
 
@@ -203,11 +234,43 @@ async function main() {
     camera.updateProjectionMatrix()
     renderer.setSize(innerWidth, innerHeight)
     updateFrustumBounds() // <--- Agrega esta línea
+    fluid.resize(innerWidth, innerHeight)
   })
   simulation.reset()
+  fluid.resize(innerWidth, innerHeight)
+  // NUEVO: Función para asignar colores al azar
+  const randomizeColors = () => {
+    params.colorInside.value.set(Math.random(), Math.random(), Math.random())
+    params.colorOutside.value.set(Math.random(), Math.random(), Math.random())
+  }
+
+  // Arreglo de posiciones objetivo (Vector3) para cada uno de los 4 modelos
+  const dancerTargets = [
+    new THREE.Vector3(),
+    new THREE.Vector3(),
+    new THREE.Vector3(),
+    new THREE.Vector3(),
+  ]
+
+  const clock = new THREE.Timer()
 
   // FRAME LOOP ------------------------------------------------------------
+  // FRAME LOOP ------------------------------------------------------------
   renderer.setAnimationLoop(() => {
+    clock.update()
+    const delta = clock.getDelta()
+
+    fluid.step(delta)
+    // Actualizamos la posición y animación de los 4 clones
+    for (let i = 0; i < 4; i++) {
+      if (dancers[i]) {
+        // Interpolación suave hacia su objetivo correspondiente
+        dancers[i].position.lerp(dancerTargets[i], 0.05)
+        // Avanzar la animación de cada clon
+        dancers[i].mixer.update(delta)
+      }
+    }
+
     if (!paused) simulation.stepSimulation()
     orbit.update()
     renderer.render(scene, camera)
