@@ -30,11 +30,7 @@ En este espacio aproveche para explorar la plantilla, e inspirarme con la cancio
 
 Interpretaremos esta pieza musical
 
-- 📹[LesAlpx](https://music.youtube.com/watch?v=iuTk8x410mk&si=5uIiZlxhe_l92Fny)
-
 Esta cancion me saca de mi mundo y me transporta a otro universo me da vibras de futurismo y progreso, El concepto que decidi tomar partes del synthwave y agregarlos a mi visualizador, las particulas les agregue una textura de estrella y las organice en forma de galaxia tambien añadi una mujer bailando la cual esta farmeando aura y tiene toques de holograma mientras giran alrededor una nave espacial
-
-![Imagen](./gifs/Holograma.png)
 
 ## 📌 Actividad 04: Presentacion
 
