@@ -1,76 +1,53 @@
 let agents = []
-let sprites = []
-let sounds = []
+let baseSprite
+let baseSound
 let sliderK, sliderVar
 
+function preload() {
+  // preload bloquea la ejecución hasta que estos archivos estén descargados
+  baseSprite = loadImage('expl_01_01_SpriteSheet.png')
+  baseSound = loadSound('DO.mp3')
+}
+
 function setup() {
-  loadImage('expl_01_01_SpriteSheet.png')
-    .then((img) => {
-      console.log('IMAGEN OK:', img)
-      spriteImg = img
-      for (let agent of agents) {
-        agent.spriteSheet = img
-      }
-    })
-    .catch((err) => console.error('IMAGEN FALLÓ:', err))
-
-  loadSound('DO.mp3')
-    .then((snd) => {
-      console.log('SONIDO OK:', snd)
-      clickSound = snd
-    })
-    .catch((err) => console.error('SONIDO FALLÓ:', err))
-
   createCanvas(800, 600)
-
+  console.log(baseSprite)
   sliderK = select('#sliderK')
   sliderVar = select('#sliderVar')
 
-  // Distribución circular de los 8 agentes
   let centerX = width / 2
   let centerY = height / 2
   let radius = 200
 
-  // Definimos 4 personalidades (Frecuencias base / BPM)
-  // [Lento, Medio, Rápido, Muy Lento]
   let omegas = [PI * 0.5, PI * 1.0, PI * 2.0, PI * 0.25]
 
   for (let i = 0; i < 8; i++) {
-    // Calcular posición en el círculo
     let angle = (TWO_PI / 8) * i
     let x = centerX + cos(angle) * radius
     let y = centerY + sin(angle) * radius
 
-    // Asignar personalidad (0, 1, 2, 3, 0, 1, 2, 3)
     let pIndex = i % 4
-
     let omegaBase = omegas[pIndex]
-    let sprite = sprites[pIndex]
-    let sound = sounds[pIndex]
 
-    // Instanciar el agente
-    agents.push(new Agent(x, y, omegaBase, sprite, sound))
+    // Instanciamos los 8 agentes con el mismo sprite/sonido y los parámetros 4, 4, 16
+    agents.push(new Agent(x, y, omegaBase, baseSprite, baseSound, 4, 4, 16))
   }
 }
 
 function draw() {
-  // 1. Calcular el estado global del colectivo
   let r = calculateOrderParameter()
 
-  // 2. Transición de color visual del estado colectivo
   let caosColor = color(30, 30, 30)
   let syncColor = color(0, 100, 200)
   let bgColor = lerpColor(caosColor, syncColor, r)
 
   background(bgColor)
 
-  // 3. Indicador UI
   fill(255)
   noStroke()
   textSize(16)
   text(`Sincronía Colectiva (r): ${r.toFixed(2)}`, 20, 30)
 
-  // Si r > 0.8, podemos mostrar un indicador visual extra de "Organización Estable"
   if (r > 0.8) {
     fill(0, 255, 100)
     text(`ESTADO: ORDEN ESTABLE`, 20, 55)
@@ -84,13 +61,10 @@ function draw() {
 
   let dt = deltaTime / 1000
   let kValue = sliderK.value()
-  let varValue = sliderVar.value() // Controla la dispersión de frecuencias
+  let varValue = sliderVar.value()
 
   for (let agent of agents) {
-    // Aplicamos la varianza (sliderVar) a la frecuencia natural para generar desorden orgánico
-    // Si varValue es 0, todos intentarán ir a su omegaBase original
     agent.omega = agent.omegaBase + random(-varValue, varValue)
-
     agent.update(dt, agents, kValue)
     agent.draw()
   }
@@ -111,7 +85,6 @@ function mouseDragged() {
   for (let agent of agents) {
     let d = dist(mouseX, mouseY, agent.x, agent.y)
     if (d < 25) {
-      // Radio visual del nodo
       agent.theta += (movedX + movedY) * 0.05
       if (agent.theta < 0) {
         agent.theta += TWO_PI

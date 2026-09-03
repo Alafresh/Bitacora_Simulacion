@@ -1,30 +1,41 @@
 class Agent {
-  constructor(x, y, omegaBase, spriteSheet, sound) {
+  // El constructor ahora exige cols, rows y totalFrames
+  constructor(x, y, omegaBase, spriteSheet, sound, cols, rows, totalFrames) {
     this.x = x
     this.y = y
-    this.theta = random(TWO_PI) // Fase inicial aleatoria
-    this.omegaBase = omegaBase // Frecuencia natural base
-    this.omega = omegaBase // Frecuencia actual (modificable)
+    this.theta = random(TWO_PI)
+    this.omegaBase = omegaBase
+    this.omega = omegaBase
 
-    // Assets y estado de animación
     this.spriteSheet = spriteSheet
     this.sound = sound
     this.isAnimating = false
     this.currentFrame = 0
-    this.totalFrames = 16 // 4x4 grid
-    this.cols = 4
-    this.rows = 4
-    this.frameDuration = 40 // Milisegundos por frame
+
+    // Asignación de variables de recorte pasadas desde setup
+    this.cols = cols
+    this.rows = rows
+    this.totalFrames = totalFrames
+
+    this.frameDuration = 40
     this.lastFrameTime = 0
   }
 
-  update(dt) {
-    // Evolución de la fase (Aquí sumarás la interacción de Kuramoto después)
-    this.theta += this.omega * dt
+  update(dt, allAgents, K) {
+    let sum = 0
+    let N = allAgents.length
 
-    // Disparador al completar ciclo (θi >= 2π)
+    // Matemática de acoplamiento de Kuramoto
+    for (let other of allAgents) {
+      let phaseDifference = other.theta - this.theta
+      sum += Math.sin(phaseDifference)
+    }
+
+    let coupling = (K / N) * sum
+    this.theta += (this.omega + coupling) * dt
+
     if (this.theta >= TWO_PI) {
-      this.theta %= TWO_PI // Mantener dentro del rango [0, 2π]
+      this.theta %= TWO_PI
       this.triggerEvent()
     }
   }
@@ -39,21 +50,18 @@ class Agent {
   }
 
   draw() {
-    // Dibujar el estado pasivo del nodo (fase visual)
     push()
     translate(this.x, this.y)
     noFill()
     stroke(100)
     strokeWeight(2)
-    circle(0, 0, 50) // Círculo base
+    circle(0, 0, 50)
 
-    // Indicador de fase actual
     stroke(255)
     let phaseRadius = 25
     line(0, 0, cos(this.theta) * phaseRadius, sin(this.theta) * phaseRadius)
     pop()
 
-    // Lógica de animación del spritesheet
     if (this.isAnimating) {
       let now = millis()
       if (now - this.lastFrameTime > this.frameDuration) {
@@ -64,7 +72,6 @@ class Agent {
       if (this.currentFrame >= this.totalFrames) {
         this.isAnimating = false
       } else {
-        // Dibujar el frame recortado centrado en el agente
         let spriteSize = 100
         drawSpriteFrame(
           this.spriteSheet,
