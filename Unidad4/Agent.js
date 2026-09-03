@@ -15,10 +15,9 @@ class Agent {
     this.omegaBase = omegaBase
     this.omega = omegaBase
 
-    // Propiedades generativas únicas para cada volcán en miniatura
-    this.vBaseWidth = random(25, 40) // Ancho en la base sobre la superficie
-    this.vTopWidth = random(14, 22) // Ancho del cráter
-    this.vHeight = random(22, 38) // Altura hacia afuera de la superficie
+    this.vBaseWidth = random(45, 70) // Base ampliada
+    this.vTopWidth = random(26, 40) // Cráter ensanchado
+    this.vHeight = random(45, 75) // Volcanes más altos y sobresalientes
 
     // Tono de roca volcánica único
     this.vColor = color(random(50, 90), random(40, 70), random(60, 100))
@@ -131,7 +130,7 @@ class Agent {
         translate(tipR, 0)
         rotate(HALF_PI)
 
-        let spriteSize = 65
+        let spriteSize = 140
         drawSpriteFrame(
           this.spriteSheet,
           this.cols,

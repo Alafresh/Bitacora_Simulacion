@@ -1,3 +1,4 @@
+let showUI = true // Controla la visibilidad de toda la interfaz
 let moonCraters = []
 let cleaningParticles = [] // Arreglo para almacenar el polvo estelar de limpieza
 let shakeDuration = 0
@@ -9,7 +10,7 @@ let sliderK, sliderVar
 let planetRotation = 0
 let stars = []
 let planetRose = null // Objeto que almacenará la rosa del planeta
-let planetRadius = 140 // <-- Declarada globalmente aquí para que funcione en setup() y draw()
+let planetRadius = 280 // <-- Declarada globalmente aquí para que funcione en setup() y draw()
 
 function preload() {
   // 7 Sprites (actualmente repitiendo el mismo, listos para ser reemplazados luego)
@@ -32,7 +33,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 600)
+  createCanvas(windowWidth, windowHeight)
   sliderK = select('#sliderK')
   sliderVar = select('#sliderVar')
 
@@ -95,14 +96,14 @@ function setup() {
       ),
     )
   }
-  // Generar cráteres lunares aleatorios pero fijos para la superficie
-  for (let i = 0; i < 6; i++) {
+  // Generar cráteres lunares acorde al nuevo radio del planeta
+  for (let i = 0; i < 8; i++) {
     let angle = random(TWO_PI)
-    let distFromCenter = random(25, planetRadius - 35)
+    let distFromCenter = random(40, planetRadius - 55) // Ajustado al nuevo radio
     moonCraters.push({
       x: cos(angle) * distFromCenter,
       y: sin(angle) * distFromCenter,
-      size: random(12, 28),
+      size: random(18, 42), // Cráteres más grandes
     })
   }
 }
@@ -219,19 +220,22 @@ function draw() {
 
   planetRotation += 0.003
 
-  fill(255)
-  textSize(16)
-  text(`Sincronía Colectiva (r): ${r.toFixed(2)}`, 20, 30)
+  // 8. Interfaz de texto superior (Solo se dibuja si showUI es verdadero)
+  if (showUI) {
+    fill(255)
+    textSize(16)
+    text(`Sincronía Colectiva (r): ${r.toFixed(2)}`, 20, 30)
 
-  if (r > 0.8) {
-    fill(0, 255, 100)
-    text(`ESTADO: ORDEN ESTABLE`, 20, 55)
-  } else if (r > 0.3) {
-    fill(255, 200, 0)
-    text(`ESTADO: ORDEN PARCIAL`, 20, 55)
-  } else {
-    fill(255, 50, 50)
-    text(`ESTADO: DESORDEN`, 20, 55)
+    if (r > 0.8) {
+      fill(0, 255, 100)
+      text(`ESTADO: ORDEN ESTABLE`, 20, 55)
+    } else if (r > 0.3) {
+      fill(255, 200, 0)
+      text(`ESTADO: ORDEN PARCIAL`, 20, 55)
+    } else {
+      fill(255, 50, 50)
+      text(`ESTADO: DESORDEN`, 20, 55)
+    }
   }
 
   let dt = deltaTime / 1000
@@ -263,6 +267,25 @@ function draw() {
 }
 
 function keyPressed() {
+  if (key === 'h' || key === 'H') {
+    showUI = !showUI
+    let displayVal = showUI ? 'block' : 'none'
+
+    // Ocultar o mostrar los sliders HTML
+    if (sliderK) sliderK.elt.style.display = displayVal
+    if (sliderVar) sliderVar.elt.style.display = displayVal
+
+    // Si tienes un contenedor HTML general para los sliders, puedes ocultarlo completo seleccionándolo así:
+    // let uiContainer = select('#ui-container');
+    // if (uiContainer) uiContainer.style('display', displayVal);
+  }
+
+  // Atajo para pantalla completa inmersiva (Tecla F)
+  if (key === 'f' || key === 'F') {
+    let fs = fullscreen()
+    fullscreen(!fs)
+  }
+
   // Al presionar la barra espaciadora (Space)
   if (key === ' ' || keyCode === 32) {
     shakeDuration = 25 // Duración del temblor en fotogramas
@@ -350,4 +373,20 @@ function calculateOrderParameter() {
     sumSin += sin(agent.theta)
   }
   return sqrt(sq(sumCos) + sq(sumSin)) / agents.length
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight)
+
+  // Regenerar las estrellas para cubrir el nuevo tamaño de pantalla
+  stars = []
+  for (let i = 0; i < 100; i++) {
+    stars.push({
+      baseX: random(width),
+      baseY: random(height),
+      size: random(1, 3),
+      alpha: random(100, 255),
+      nSeed: random(1000),
+    })
+  }
 }

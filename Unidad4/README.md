@@ -18,9 +18,17 @@ El proposito de esta es estudiar comportamientos periódicos y oscilatoriosortes
 
 ### Concepto: Sincronía Tectónica
 
+cada agente es un volcan que erupciona;
+
+- **θi Es la presión acumulada**: la presión geotérmica del volcan, Al llegar al límite: erupciona y la presión se libera a 0.
+-
+
 ![Imagen](./volcan2.jpg)
 ![Imagen](./volcan.jpg)
 
 ¿Cómo convertir un modelo de autoorganización en un instrumento audiovisual performativo?
 
-¿Qué hace Kuramoto en esta experiencia que no podría resolverse simplemente mediante un reloj global, un secuenciador o temporizadores independientes?
+- Primero hay que traducir las variables invisibles del sistema matematico en dimensiones concretas como; sprites en bucles, activacion de audio ritmico, variacion de la atmosfera del planeta.
+- Exponer los parametros estructurales del modelo a interfaces de interaccion, deslizadores de $K$ y $\omega$, comandos de teclado para terremotos tectónicos con SPACE o limpieza con W que transforman una simulación cerrada en un entorno ejecutable.  
+  ¿Qué hace Kuramoto en esta experiencia que no podría resolverse simplemente mediante un reloj global, un secuenciador o temporizadores independientes?
+- Kuramoto genera un comportamiento emergente y descentralizado, donde los volcanes ajustan sus frecuencias de manera orgánica al ser influenciados localmente por las fases de sus vecinos.
