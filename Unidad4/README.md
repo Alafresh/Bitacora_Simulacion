@@ -58,4 +58,4 @@ Sincronía tectónica en volcanes (o sincronía vulcanotectónica) se refiere al
 
 - Kuramoto genera un comportamiento emergente y descentralizado, donde los volcanes ajustan sus frecuencias de manera orgánica al ser influenciados localmente por las fases de sus vecinos.
 
-### [Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
+### [Enlace del Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
