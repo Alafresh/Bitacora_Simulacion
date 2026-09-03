@@ -1,3 +1,4 @@
+let moonCraters = []
 let cleaningParticles = [] // Arreglo para almacenar el polvo estelar de limpieza
 let shakeDuration = 0
 let shakeIntensity = 0
@@ -8,6 +9,7 @@ let sliderK, sliderVar
 let planetRotation = 0
 let stars = []
 let planetRose = null // Objeto que almacenará la rosa del planeta
+let planetRadius = 140 // <-- Declarada globalmente aquí para que funcione en setup() y draw()
 
 function preload() {
   baseSprite = loadImage('expl_01_01_SpriteSheet.png')
@@ -42,6 +44,16 @@ function setup() {
     agents.push(
       new Agent(i, totalAgents, omegaBase, baseSprite, baseSound, 4, 4, 16),
     )
+  }
+  // Generar cráteres lunares aleatorios pero fijos para la superficie
+  for (let i = 0; i < 6; i++) {
+    let angle = random(TWO_PI)
+    let distFromCenter = random(25, planetRadius - 35)
+    moonCraters.push({
+      x: cos(angle) * distFromCenter,
+      y: sin(angle) * distFromCenter,
+      size: random(12, 28),
+    })
   }
 }
 
@@ -108,7 +120,6 @@ function draw() {
 
   let planetX = width / 2
   let planetY = height / 2 + 30
-  let planetRadius = 140
 
   // 4. Dibujar la atmósfera exterior del planeta según el estado de sincronía (r)
   let glowColor
@@ -137,14 +148,22 @@ function draw() {
     ellipse(planetX, planetY, rDist * 2)
   }
 
-  fill(210, 165, 120)
-  stroke(130, 90, 60)
+  // 5. Dibujar el cuerpo esférico del planeta (Estilo Luna Neutra sin líneas divisorias)
+  fill(165, 170, 180) // Gris lunar base uniforme
+  stroke(110, 115, 125) // Borde sutil de la esfera
   strokeWeight(3)
   ellipse(planetX, planetY, planetRadius * 2)
 
+  // Dibujar los cráteres lunares estáticos en la superficie
   noStroke()
-  fill(180, 135, 95, 150)
-  arc(planetX, planetY, planetRadius * 2, planetRadius * 2, 0, PI)
+  for (let c of moonCraters) {
+    // Sombra del cráter
+    fill(135, 140, 150, 200)
+    ellipse(planetX + c.x, planetY + c.y, c.size)
+    // Pequeño brillo interior para dar volumen cóncavo
+    fill(190, 195, 205, 150)
+    ellipse(planetX + c.x - 2, planetY + c.y - 2, c.size * 0.6)
+  }
 
   drawPlanetRose(planetX, planetY)
 
