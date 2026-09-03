@@ -22,15 +22,13 @@ function setup() {
   let omegas = [PI * 0.5, PI * 1.0, PI * 2.0, PI * 0.25]
 
   for (let i = 0; i < 8; i++) {
-    // Distribuir los 8 volcanes horizontalmente de izquierda a derecha
-    let x = map(i, 0, 7, 80, width - 80)
-    // Altura de la cumbre de los volcanes (alineados cerca de la mitad inferior)
-    let y = height - 160
+    // Distribuir equitativamente a lo ancho de la pantalla con un margen seguro
+    let x = map(i, 0, 7, width * 0.1, width * 0.9)
+    let y = height // La base descansa sobre el fondo de la pantalla
 
     let pIndex = i % 4
     let omegaBase = omegas[pIndex]
 
-    // Instanciar el agente volcánico
     agents.push(new Agent(x, y, omegaBase, baseSprite, baseSound, 4, 4, 16))
   }
 }
