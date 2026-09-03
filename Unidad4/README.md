@@ -18,11 +18,24 @@ El proposito de esta es estudiar comportamientos periódicos y oscilatoriosortes
 
 ### Concepto: Sincronía Tectónica
 
-cada agente es un volcan que erupciona;
+Sincronía tectónica en volcanes (o sincronía vulcanotectónica) se refiere al fenómeno en el cual múltiples volcanes o sistemas magmáticos entran en actividad, cambian su comportamiento o erosionan de forma simultánea debido a un mismo estímulo o esfuerzo tectónico regional, cada agente es un volcan que erupciona;
 
 - **θi Es la presión acumulada**: la presión geotérmica del volcan, Al llegar al límite: erupciona y la presión se libera a 0.
 - **ωi Frecuencia natural** nos indica que tan activo es el volcan, algunos volcanes entran en erupcion cada pocos segundos, otros son volcanes lentos
 - **K Acoplamiento tectónico** la conexión entre los diferentes volcanes para producir una erupción conjunta
+
+### Prototipo Inicial
+
+![Imagen](./imagenes//volcan2.jpg)
+![Imagen](./imagenes//volcan.jpg)
+
+### Inspiracion El principito
+
+- En el cuento del principito el cuida los volcanes, se implementa una Mecánica de Limpieza con la tecla W, el usuario asume el rol del protagonista barriendo la superficie con chispas doradas para devolver el orden caótico y la independencia a los cráteres.
+- La Rosa, representa la fragilidad, el cuidado y la singularidad que motivan la existencia del pequeño mundo
+- Aislamiento Planetario, conecta el concepto de un planeta solitario en la inmensidad del espacio profundo con el modelo de Kuramoto. sus 8 agentes reflejan cómo en un micromundo cerrado, cualquier perturbación local (como el terremoto tectónico con la barra espaciadora) repercute de manera inmediata e ineludible en todo el colectivo.
+
+![Imagen](./imagenes/Principito_Volcanes.jpg)
 
 ### Comportamiento
 
@@ -33,9 +46,6 @@ cada agente es un volcan que erupciona;
 - **Volcán 4**: Establecido en una frecuencia pausada de $\pi \times 0.15$, activa el sample de caja `snare.mp3` junto con el spritesheet de fuego normal
 - **Volcán 5**: Cuenta con una frecuencia reducida de $\pi \times 0.1$, utilizando el sonido ambiental de sintetizador seco `dry_synth.mp3` y una columna de llama vertical
 - **Volcán 6**: El agente más contemplativo, con una frecuencia casi estática de $\pi \times 0.05$, ejecuta un sintetizador melódico extendido `Riff_Synth.mp3` sincronizado con una esfera mágica cuya animación se mantiene en bucle estricto hasta finalizar el audio.
-
-![Imagen](./volcan2.jpg)
-![Imagen](./volcan.jpg)
 
 ¿Cómo convertir un modelo de autoorganización en un instrumento audiovisual performativo?
 
