@@ -126,15 +126,15 @@ function draw() {
 
   if (r < 0.3) {
     // DESORDEN: Atmósfera Azul profunda y fría
-    glowColor = color(50, 150, 255, 100)
+    glowColor = color(214, 214, 214, 100)
   } else if (r < 0.8) {
     // ORDEN PARCIAL: Transición entre Amarillo y Naranja cálido
     let t = map(r, 0.3, 0.8, 0, 1)
-    glowColor = lerpColor(color(255, 200, 50, 100), color(255, 120, 20, 110), t)
+    glowColor = color(160, 160, 160, 110)
   } else {
     // ORDEN ESTABLE: Rojo intenso con un pulso dinámico de erupción unificada
     let pulseAlpha = map(sin(frameCount * 0.15), -1, 1, 120, 220)
-    glowColor = color(255, 40, 30, pulseAlpha)
+    glowColor = color(240, 220, 190, pulseAlpha)
   }
 
   // Renderizar las capas del halo atmosférico
