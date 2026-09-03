@@ -12,16 +12,23 @@ let planetRose = null // Objeto que almacenará la rosa del planeta
 let planetRadius = 140 // <-- Declarada globalmente aquí para que funcione en setup() y draw()
 
 function preload() {
-  // Asegúrate de cambiar estos nombres por los archivos exactos que subas a tu proyecto
-  sprites[0] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 0: Lenta (ej: Bombo)
-  sprites[1] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 1: Media (ej: Caja)
-  sprites[2] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 2: Rápida (ej: Hi-hat)
-  sprites[3] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 3: Muy lenta (ej: Sintetizador)
+  // 7 Sprites (actualmente repitiendo el mismo, listos para ser reemplazados luego)
+  sprites[0] = loadImage('expl_01_01_SpriteSheet.png') // 0: Kick (Rápido)
+  sprites[1] = loadImage('spritesheet/lazer_normal_SpriteSheet.png') // 1: Beatbox
+  sprites[2] = loadImage('spritesheet/Flame_1_SpriteSheet.png') // 2: Hi-hat
+  sprites[3] = loadImage('spritesheet/Fireball_1_loop_SpriteSheet.png') // 3: Triangle
+  sprites[4] = loadImage('spritesheet/Side_Hit_normal_SpriteSheet.png') // 4: Lento 1
+  sprites[5] = loadImage('spritesheet/Flame_Vertical_4_SpriteSheet.png') // 5: Lento 2
+  sprites[6] = loadImage('spritesheet/lazer_normal_SpriteSheet.png') // 6: Lento 3
 
-  sounds[0] = loadSound('audios/beatbox.mp3')
-  sounds[1] = loadSound('audios/hi-hat.mp3')
-  sounds[2] = loadSound('audios/kick_drum.mp3')
+  // 7 Audios
+  sounds[0] = loadSound('audios/kick_drum.mp3') // 0: Rápido (Se repetirá en el agente 8)
+  sounds[1] = loadSound('audios/beatbox.mp3')
+  sounds[2] = loadSound('audios/hi-hat.mp3')
   sounds[3] = loadSound('audios/triangle.mp3')
+  sounds[4] = loadSound('audios/snare.mp3')
+  sounds[5] = loadSound('audios/dry_synth.mp3')
+  sounds[6] = loadSound('audios/Riff_Synth.mp3')
 }
 
 function setup() {
@@ -43,20 +50,33 @@ function setup() {
   // Crear la rosa matemática aleatoria del principito en el centro
   setupPlanetRose()
 
-  let omegas = [PI * 0.5, PI * 1.0, PI * 2.0, PI * 0.25]
+  // 7 frecuencias naturales: El 0 es muy rápido (Kick), los últimos 3 son extra lentos
+  let omegas = [
+    PI * 2.0, // 0: Kick (Rápido)
+    PI * 1.0, // 1: Medio
+    PI * 0.5, // 2: Lento
+    PI * 0.25, // 3: Muy lento
+    PI * 0.15, // 4: Extra lento 1
+    PI * 0.1, // 5: Extra lento 2
+    PI * 0.05, // 6: Extra lento 3 (Casi estático)
+  ]
+
   let totalAgents = 8
 
-  // Configuración de recorte para cada uno de los 4 spritesheets: {columnas, filas, total de frames}
-  // Modifica estos números según el tamaño real de cada PNG que uses
+  // 7 configuraciones de spritesheets correspondientes
   let spriteConfigs = [
-    { cols: 4, rows: 4, frames: 16 }, // Para sprites[0]
-    { cols: 4, rows: 4, frames: 16 }, // Para sprites[1]
-    { cols: 4, rows: 4, frames: 16 }, // Para sprites[2]
-    { cols: 4, rows: 4, frames: 16 }, // Para sprites[3]
+    { cols: 4, rows: 4, frames: 16 }, // 0
+    { cols: 4, rows: 4, frames: 16 }, // 1
+    { cols: 4, rows: 4, frames: 16 }, // 2
+    { cols: 2, rows: 4, frames: 8 }, // 3
+    { cols: 2, rows: 4, frames: 8 }, // 4
+    { cols: 8, rows: 4, frames: 32 }, // 5
+    { cols: 4, rows: 4, frames: 64 }, // 6
   ]
 
   for (let i = 0; i < totalAgents; i++) {
-    let pIndex = i % 4 // Asegura que los índices siempre sean 0, 1, 2 o 3
+    // Al usar módulo 7 (i % 7), el agente índice 7 tomará la personalidad 0
+    let pIndex = i % 7
     let omegaBase = omegas[pIndex]
     let spr = sprites[pIndex]
     let snd = sounds[pIndex]
