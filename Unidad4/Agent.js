@@ -1,18 +1,27 @@
 class Agent {
-  constructor(x, y, omegaBase, spriteSheet, sound, cols, rows, totalFrames) {
-    this.x = x // Posición X central
-    this.y = y // Línea de base inferior (suelo)
+  constructor(
+    index,
+    total,
+    omegaBase,
+    spriteSheet,
+    sound,
+    cols,
+    rows,
+    totalFrames,
+  ) {
+    this.index = index
+    this.total = total
     this.theta = random(TWO_PI)
     this.omegaBase = omegaBase
     this.omega = omegaBase
 
-    // Propiedades generativas únicas para cada volcán (inspirado en tu ejemplo)
-    this.vWidth = random(130, 220) // Ancho de la base aleatorio
-    this.topWidth = random(35, 55) // Ancho del cráter superior aleatorio
-    this.vHeight = random(120, 290) // Altura del volcán aleatoria
+    // Propiedades generativas únicas para cada volcán en miniatura
+    this.vBaseWidth = random(35, 55) // Ancho en la base de la superficie del planeta
+    this.vTopWidth = random(16, 26) // Ancho del cráter
+    this.vHeight = random(25, 45) // Altura hacia afuera de la superficie
 
-    // Tono de roca volcánica único y terroso para cada montaña
-    this.vColor = color(random(30, 70), random(25, 50), random(45, 85))
+    // Tono de roca volcánica único
+    this.vColor = color(random(50, 90), random(40, 70), random(60, 100))
 
     this.spriteSheet = spriteSheet
     this.sound = sound
@@ -54,27 +63,30 @@ class Agent {
     }
   }
 
-  draw() {
+  draw(planetX, planetY, planetRadius, planetRotation) {
     push()
     let pressureRatio = this.theta / TWO_PI
 
-    // Coordenadas de la cumbre calculadas de forma generativa
-    let peakX = this.x
-    let peakY = this.y - this.vHeight
+    // Calcular el ángulo estático del agente más la rotación global del planeta
+    let angle = this.index * (TWO_PI / this.total) + planetRotation
 
-    // 1. Dibujar la silueta geométrica del volcán usando un quad personalizado
+    // Trasladar el origen al centro del planeta y rotar para alinear con la normal radial
+    translate(planetX, planetY)
+    rotate(angle)
+
+    // Posición base sobre la superficie del planeta (en el borde exterior de la esfera) y el pico hacia afuera
+    let baseR = planetRadius
+    let tipR = planetRadius + this.vHeight
+
+    // 1. Dibujar el cono del volcán apuntando hacia afuera utilizando polígonos (quad / beginShape)
     noStroke()
     fill(this.vColor)
-    quad(
-      this.x - this.vWidth / 2,
-      this.y, // Esquina inferior izquierda
-      peakX - this.topWidth / 2,
-      peakY, // Esquina superior izquierda (cráter)
-      peakX + this.topWidth / 2,
-      peakY, // Esquina superior derecha (cráter)
-      this.x + this.vWidth / 2,
-      this.y, // Esquina inferior derecha
-    )
+    beginShape()
+    vertex(-this.vBaseWidth / 2, baseR) // Base izquierda
+    vertex(this.vBaseWidth / 2, baseR) // Base derecha
+    vertex(this.vTopWidth / 2, tipR) // Cumbre derecha
+    vertex(-this.vTopWidth / 2, tipR) // Cumbre izquierda
+    endShape(CLOSE)
 
     // 2. El cráter y la piscina de magma interior que reacciona a la presión (θ_i)
     let coldMagma = color(60, 45, 60)
@@ -82,18 +94,17 @@ class Agent {
     let magmaColor = lerpColor(coldMagma, hotMagma, pressureRatio)
 
     fill(magmaColor)
-    ellipse(peakX, peakY, this.topWidth, 16) // Óvalo del cráter
+    ellipse(0, tipR, this.vTopWidth * 0.8, 8) // El óvalo del cráter visto de perfil radial
 
     // Anillo de alerta si la presión está al límite (> 80%)
     if (pressureRatio > 0.8) {
       noFill()
       stroke(255, 200, 0, 180)
-      strokeWeight(2)
-      ellipse(peakX, peakY, this.topWidth, 20)
+      strokeWeight(1.5)
+      ellipse(0, tipR, this.vTopWidth, 10)
     }
-    pop()
 
-    // 3. Lógica de erupción (spritesheet brotando exactamente desde la cumbre)
+    // 3. Lógica de erupción (spritesheet brotando hacia el espacio exterior desde el cráter)
     if (this.isAnimating) {
       let now = millis()
       if (now - this.lastFrameTime > this.frameDuration) {
@@ -104,18 +115,26 @@ class Agent {
       if (this.currentFrame >= this.totalFrames) {
         this.isAnimating = false
       } else {
-        let spriteSize = 110
+        push()
+        // Nos posicionamos exactamente en la cumbre del volcán y des-rotamos temporalmente
+        // para que las explosiones siempre broten verticalmente hacia arriba respecto al espacio
+        translate(0, tipR)
+        rotate(-angle)
+
+        let spriteSize = 70
         drawSpriteFrame(
           this.spriteSheet,
           this.cols,
           this.rows,
           this.currentFrame,
-          peakX - spriteSize / 2,
-          peakY - spriteSize + 10,
+          -spriteSize / 2,
+          -spriteSize + 5,
           spriteSize,
           spriteSize,
         )
+        pop()
       }
     }
+    pop()
   }
 }

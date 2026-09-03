@@ -16,7 +16,9 @@ El proposito de esta es estudiar comportamientos periódicos y oscilatoriosortes
 
 ## 📌 Actividad 02: Encargo de diseño
 
+![Imagen](./volcan2.jpg)
+![Imagen](./volcan.jpg)
+
 ¿Cómo convertir un modelo de autoorganización en un instrumento audiovisual performativo?
 
 ¿Qué hace Kuramoto en esta experiencia que no podría resolverse simplemente mediante un reloj global, un secuenciador o temporizadores independientes?
-
