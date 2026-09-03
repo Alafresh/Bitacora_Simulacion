@@ -1,3 +1,4 @@
+let cleaningParticles = [] // Arreglo para almacenar el polvo estelar de limpieza
 let shakeDuration = 0
 let shakeIntensity = 0
 let agents = []
@@ -18,13 +19,14 @@ function setup() {
   sliderK = select('#sliderK')
   sliderVar = select('#sliderVar')
 
-  // Generar estrellas fijas para el fondo espacial
+  // Generar estrellas dinámicas para el fondo espacial
   for (let i = 0; i < 100; i++) {
     stars.push({
-      x: random(width),
-      y: random(height),
+      baseX: random(width),
+      baseY: random(height),
       size: random(1, 3),
       alpha: random(100, 255),
+      nSeed: random(1000), // Semilla única para desfasar el movimiento de cada estrella
     })
   }
 
@@ -86,12 +88,20 @@ function draw() {
     shakeDuration--
   }
 
-  // Fondo de espacio profundo con estrellas
+  // 1. Fondo de espacio profundo con estrellas dotadas de ruido orgánico
   background(15, 15, 30)
   noStroke()
+
   for (let s of stars) {
-    fill(255, s.alpha)
-    ellipse(s.x, s.y, s.size)
+    // Desplazamiento sutil en X e Y usando Perlin Noise basado en el tiempo (frameCount)
+    let nX = s.baseX + (noise(frameCount * 0.004 + s.nSeed) - 0.5) * 15
+    let nY = s.baseY + (noise(frameCount * 0.004 + s.nSeed + 500) - 0.5) * 15
+
+    // Parpadeo suave (twinkle) combinado con el ruido
+    let twinkleAlpha = s.alpha + (noise(frameCount * 0.01 + s.nSeed) - 0.5) * 80
+
+    fill(255, constrain(twinkleAlpha, 40, 255))
+    ellipse(nX, nY, s.size)
   }
 
   let r = calculateOrderParameter()
@@ -100,16 +110,29 @@ function draw() {
   let planetY = height / 2 + 30
   let planetRadius = 140
 
-  let glowColorA = color(230, 140, 100, 50)
-  let glowColorB = color(100, 200, 255, 120)
-  let currentGlow = lerpColor(glowColorA, glowColorB, r)
+  // 4. Dibujar la atmósfera exterior del planeta según el estado de sincronía (r)
+  let glowColor
 
+  if (r < 0.3) {
+    // DESORDEN: Atmósfera Azul profunda y fría
+    glowColor = color(50, 150, 255, 100)
+  } else if (r < 0.8) {
+    // ORDEN PARCIAL: Transición entre Amarillo y Naranja cálido
+    let t = map(r, 0.3, 0.8, 0, 1)
+    glowColor = lerpColor(color(255, 200, 50, 100), color(255, 120, 20, 110), t)
+  } else {
+    // ORDEN ESTABLE: Rojo intenso con un pulso dinámico de erupción unificada
+    let pulseAlpha = map(sin(frameCount * 0.15), -1, 1, 120, 220)
+    glowColor = color(255, 40, 30, pulseAlpha)
+  }
+
+  // Renderizar las capas del halo atmosférico
   for (let rDist = planetRadius + 40; rDist > planetRadius; rDist -= 5) {
     fill(
-      red(currentGlow),
-      green(currentGlow),
-      blue(currentGlow),
-      map(rDist, planetRadius, planetRadius + 40, 40, 0),
+      red(glowColor),
+      green(glowColor),
+      blue(glowColor),
+      map(rDist, planetRadius, planetRadius + 40, alpha(glowColor), 0),
     )
     ellipse(planetX, planetY, rDist * 2)
   }
@@ -151,7 +174,22 @@ function draw() {
     agent.update(dt, agents, kValue)
     agent.draw(planetX, planetY, planetRadius, planetRotation)
   }
+  // Actualizar y dibujar partículas de limpieza (polvo estelar)
+  for (let i = cleaningParticles.length - 1; i >= 0; i--) {
+    let p = cleaningParticles[i]
+    p.x += p.vx
+    p.y += p.vy
+    p.alpha -= 6 // Velocidad de desvanecimiento
 
+    noStroke()
+    fill(red(p.col), green(p.col), blue(p.col), constrain(p.alpha, 0, 255))
+    ellipse(p.x, p.y, p.size)
+
+    // Eliminar partículas cuando se desvanezcan por completo
+    if (p.alpha <= 0) {
+      cleaningParticles.splice(i, 1)
+    }
+  }
   pop() // Cierra la transformación del temblor de cámara
 }
 
@@ -166,13 +204,32 @@ function keyPressed() {
     sliderK.value(min(5, currentK + 3.0))
   }
 
-  // Limpieza del Planeta (Tecla W) -> Baja el acoplamiento K y sube la varianza (caos individual)
+  // Limpieza del Planeta (Tecla W) -> Desacopla la red, sube el caos y lanza polvo estelar
   if (key === 'w' || key === 'W') {
     let currentK = sliderK.value()
     let currentVar = sliderVar.value()
 
-    sliderK.value(max(0, currentK - 2.5)) // Desconecta la red tectónica
-    sliderVar.value(min(2, currentVar + 1.0)) // Eleva la heterogeneidad y el desorden
+    sliderK.value(max(0, currentK - 2.5))
+    sliderVar.value(min(2, currentVar + 1.0))
+
+    // Generar ráfaga de polvo estelar dorado barriendo la superficie
+    let planetX = width / 2
+    let planetY = height / 2 + 30
+    let planetRadius = 140
+
+    for (let i = 0; i < 45; i++) {
+      let angle = random(TWO_PI)
+      let speed = random(1.5, 3.5)
+      cleaningParticles.push({
+        x: planetX + cos(angle) * planetRadius,
+        y: planetY + sin(angle) * planetRadius,
+        vx: cos(angle) * speed,
+        vy: sin(angle) * speed - 0.5, // Leve impulso ascendente de limpieza
+        alpha: 255,
+        size: random(2, 5),
+        col: color(255, random(190, 230), random(80, 130)), // Tonos dorados y chispas suaves
+      })
+    }
   }
 }
 
