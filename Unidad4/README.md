@@ -1,4 +1,4 @@
-# 🌊 Unidad 3: Osciliación
+# 🌊 Unidad 4: Osciliación
 
 **Texto Guia:** Capítulo 3 - Oscillation [The Nature of Code](https://natureofcode.com/oscillation/)
 **Herramienta de desarrollo:** three.js / JavaScript
@@ -15,6 +15,8 @@ El proposito de esta es estudiar comportamientos periódicos y oscilatoriosortes
 - 📹[Kuramoto Dreams](https://cgli.itch.io/kuramoto-dreams)
 
 ## 📌 Actividad 02: Encargo de diseño
+
+### Concepto: Sincronía Tectónica
 
 ![Imagen](./volcan2.jpg)
 ![Imagen](./volcan.jpg)

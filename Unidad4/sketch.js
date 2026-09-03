@@ -3,8 +3,8 @@ let cleaningParticles = [] // Arreglo para almacenar el polvo estelar de limpiez
 let shakeDuration = 0
 let shakeIntensity = 0
 let agents = []
-let baseSprite
-let baseSound
+let sprites = []
+let sounds = []
 let sliderK, sliderVar
 let planetRotation = 0
 let stars = []
@@ -12,8 +12,16 @@ let planetRose = null // Objeto que almacenará la rosa del planeta
 let planetRadius = 140 // <-- Declarada globalmente aquí para que funcione en setup() y draw()
 
 function preload() {
-  baseSprite = loadImage('expl_01_01_SpriteSheet.png')
-  baseSound = loadSound('DO.mp3')
+  // Asegúrate de cambiar estos nombres por los archivos exactos que subas a tu proyecto
+  sprites[0] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 0: Lenta (ej: Bombo)
+  sprites[1] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 1: Media (ej: Caja)
+  sprites[2] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 2: Rápida (ej: Hi-hat)
+  sprites[3] = loadImage('expl_01_01_SpriteSheet.png') // Personalidad 3: Muy lenta (ej: Sintetizador)
+
+  sounds[0] = loadSound('audios/beatbox.mp3')
+  sounds[1] = loadSound('audios/hi-hat.mp3')
+  sounds[2] = loadSound('audios/kick_drum.mp3')
+  sounds[3] = loadSound('audios/triangle.mp3')
 }
 
 function setup() {
@@ -38,11 +46,33 @@ function setup() {
   let omegas = [PI * 0.5, PI * 1.0, PI * 2.0, PI * 0.25]
   let totalAgents = 8
 
+  // Configuración de recorte para cada uno de los 4 spritesheets: {columnas, filas, total de frames}
+  // Modifica estos números según el tamaño real de cada PNG que uses
+  let spriteConfigs = [
+    { cols: 4, rows: 4, frames: 16 }, // Para sprites[0]
+    { cols: 4, rows: 4, frames: 16 }, // Para sprites[1]
+    { cols: 4, rows: 4, frames: 16 }, // Para sprites[2]
+    { cols: 4, rows: 4, frames: 16 }, // Para sprites[3]
+  ]
+
   for (let i = 0; i < totalAgents; i++) {
-    let pIndex = i % 4
+    let pIndex = i % 4 // Asegura que los índices siempre sean 0, 1, 2 o 3
     let omegaBase = omegas[pIndex]
+    let spr = sprites[pIndex]
+    let snd = sounds[pIndex]
+    let conf = spriteConfigs[pIndex]
+
     agents.push(
-      new Agent(i, totalAgents, omegaBase, baseSprite, baseSound, 4, 4, 16),
+      new Agent(
+        i,
+        totalAgents,
+        omegaBase,
+        spr,
+        snd,
+        conf.cols,
+        conf.rows,
+        conf.frames,
+      ),
     )
   }
   // Generar cráteres lunares aleatorios pero fijos para la superficie
