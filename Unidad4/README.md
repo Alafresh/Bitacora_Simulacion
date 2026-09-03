@@ -21,7 +21,18 @@ El proposito de esta es estudiar comportamientos periódicos y oscilatoriosortes
 cada agente es un volcan que erupciona;
 
 - **θi Es la presión acumulada**: la presión geotérmica del volcan, Al llegar al límite: erupciona y la presión se libera a 0.
--
+- **ωi Frecuencia natural** nos indica que tan activo es el volcan, algunos volcanes entran en erupcion cada pocos segundos, otros son volcanes lentos
+- **K Acoplamiento tectónico** la conexión entre los diferentes volcanes para producir una erupción conjunta
+
+### Comportamiento
+
+- **Volcan 0 y 7**: Con una frecuencia natural alta de $\pi \times 2.0$, emite un pulso percusivo rápido con el audio `kick_drum.mp3` y el spritesheet de erupción estándar
+- **Volcán 1**: Configurado con una frecuencia de $\pi \times 1.0$, interpreta el sample rítmico `beatbox.mp3` vinculado visualmente al spritesheet de destello láser
+- **Volcán 2**: Opera a una frecuencia de $\pi \times 0.5$, reproduciendo el sonido de alta frecuencia `hi-hat.mp3` acompañado por la animación de llama simple
+- **Volcán 3**: Posee una frecuencia de $\pi \times 0.25$, emitiendo notas de percusión metálica mediante `triangle.mp3` y una llama con toques azules
+- **Volcán 4**: Establecido en una frecuencia pausada de $\pi \times 0.15$, activa el sample de caja `snare.mp3` junto con el spritesheet de fuego normal
+- **Volcán 5**: Cuenta con una frecuencia reducida de $\pi \times 0.1$, utilizando el sonido ambiental de sintetizador seco `dry_synth.mp3` y una columna de llama vertical
+- **Volcán 6**: El agente más contemplativo, con una frecuencia casi estática de $\pi \times 0.05$, ejecuta un sintetizador melódico extendido `Riff_Synth.mp3` sincronizado con una esfera mágica cuya animación se mantiene en bucle estricto hasta finalizar el audio.
 
 ![Imagen](./volcan2.jpg)
 ![Imagen](./volcan.jpg)
