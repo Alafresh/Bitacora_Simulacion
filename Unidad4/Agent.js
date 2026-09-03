@@ -107,7 +107,7 @@ class Agent {
       ellipse(tipR, 0, 10, this.vTopWidth)
     }
 
-    // 3. Lógica de erupción (spritesheet brotando exactamente desde el cráter hacia afuera)
+    // 3. Lógica de erupción (spritesheet brotando hacia afuera)
     if (this.isAnimating) {
       let now = millis()
       if (now - this.lastFrameTime > this.frameDuration) {
@@ -115,13 +115,20 @@ class Agent {
         this.lastFrameTime = now
       }
 
+      // LÓGICA DE BUCLE DINÁMICO:
+      // Si la animación llega a su último frame, verifica el audio
       if (this.currentFrame >= this.totalFrames) {
-        this.isAnimating = false
-      } else {
+        if (this.sound && this.sound.isPlaying()) {
+          this.currentFrame = 0 // El audio sigue sonando -> Reinicia el ciclo
+        } else {
+          this.isAnimating = false // El audio terminó -> Apaga la animación
+        }
+      }
+
+      // Dibujar solo si sigue animando
+      if (this.isAnimating) {
         push()
-        // Nos posicionalmos exactamente en la punta del cráter (tipR, 0)
         translate(tipR, 0)
-        // Rotamos 90 grados para alinear la erupción con la dirección radial saliente
         rotate(HALF_PI)
 
         let spriteSize = 65
@@ -131,7 +138,7 @@ class Agent {
           this.rows,
           this.currentFrame,
           -spriteSize / 2,
-          -spriteSize, // Hace que la base de la explosión nazca justo en el borde del cráter
+          -spriteSize,
           spriteSize,
           spriteSize,
         )
