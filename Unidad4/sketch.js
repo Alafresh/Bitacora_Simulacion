@@ -1,3 +1,5 @@
+let shakeDuration = 0
+let shakeIntensity = 0
 let agents = []
 let baseSprite
 let baseSound
@@ -75,7 +77,16 @@ function reduceDenominator(n, d) {
 }
 
 function draw() {
-  // 1. Fondo de espacio profundo con estrellas
+  push()
+  // Aplicar sacudida de cámara si el terremoto está activo
+  if (shakeDuration > 0) {
+    let offsetX = random(-shakeIntensity, shakeIntensity)
+    let offsetY = random(-shakeIntensity, shakeIntensity)
+    translate(offsetX, offsetY)
+    shakeDuration--
+  }
+
+  // Fondo de espacio profundo con estrellas
   background(15, 15, 30)
   noStroke()
   for (let s of stars) {
@@ -83,15 +94,12 @@ function draw() {
     ellipse(s.x, s.y, s.size)
   }
 
-  // 2. Calcular estado de sincronía colectiva (r)
   let r = calculateOrderParameter()
 
-  // 3. Coordenadas del centro del planeta
   let planetX = width / 2
   let planetY = height / 2 + 30
   let planetRadius = 140
 
-  // 4. Dibujar la atmósfera exterior del planeta (glow dinámico)
   let glowColorA = color(230, 140, 100, 50)
   let glowColorB = color(100, 200, 255, 120)
   let currentGlow = lerpColor(glowColorA, glowColorB, r)
@@ -106,24 +114,19 @@ function draw() {
     ellipse(planetX, planetY, rDist * 2)
   }
 
-  // 5. Dibujar el cuerpo esférico del planeta
   fill(210, 165, 120)
   stroke(130, 90, 60)
   strokeWeight(3)
   ellipse(planetX, planetY, planetRadius * 2)
 
-  // Sombra interior sutil del planeta
   noStroke()
   fill(180, 135, 95, 150)
   arc(planetX, planetY, planetRadius * 2, planetRadius * 2, 0, PI)
 
-  // 6. Dibujar la rosa matemática en el centro del planeta
   drawPlanetRose(planetX, planetY)
 
-  // 7. Rotación lenta del planeta completo
   planetRotation += 0.003
 
-  // 8. Interfaz de texto superior
   fill(255)
   textSize(16)
   text(`Sincronía Colectiva (r): ${r.toFixed(2)}`, 20, 30)
@@ -139,7 +142,6 @@ function draw() {
     text(`ESTADO: DESORDEN`, 20, 55)
   }
 
-  // 9. Actualizar y dibujar agentes (los 8 volcanes)
   let dt = deltaTime / 1000
   let kValue = sliderK.value()
   let varValue = sliderVar.value()
@@ -148,6 +150,29 @@ function draw() {
     agent.omega = agent.omegaBase + random(-varValue, varValue)
     agent.update(dt, agents, kValue)
     agent.draw(planetX, planetY, planetRadius, planetRotation)
+  }
+
+  pop() // Cierra la transformación del temblor de cámara
+}
+
+function keyPressed() {
+  // Al presionar la barra espaciadora (Space)
+  if (key === ' ' || keyCode === 32) {
+    shakeDuration = 25 // Duración del temblor en fotogramas
+    shakeIntensity = 10 // Fuerza de la sacudida visual
+
+    // Aumentar drásticamente el acoplamiento K temporalmente para forzar sincronía
+    let currentK = sliderK.value()
+    sliderK.value(min(5, currentK + 3.0))
+  }
+
+  // Limpieza del Planeta (Tecla W) -> Baja el acoplamiento K y sube la varianza (caos individual)
+  if (key === 'w' || key === 'W') {
+    let currentK = sliderK.value()
+    let currentVar = sliderVar.value()
+
+    sliderK.value(max(0, currentK - 2.5)) // Desconecta la red tectónica
+    sliderVar.value(min(2, currentVar + 1.0)) // Eleva la heterogeneidad y el desorden
   }
 }
 
