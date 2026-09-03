@@ -1,14 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unidad4</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.3.0/dist/p5.sound.min.js"></script>
-</head>
-<body>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@2.3.2/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5.sound@0.4.1/dist/p5.sound.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <div class="controls">
+      <label
+        >Acoplamiento (K):
+        <input type="range" id="sliderK" min="0" max="5" step="0.1" value="0.5"
+      /></label>
+      <label
+        >Varianza ω:
+        <input
+          type="range"
+          id="sliderVar"
+          min="0"
+          max="2"
+          step="0.1"
+          value="0.5"
+      /></label>
+    </div>
+    <script src="Agent.js"></script>
     <script src="sketch.js"></script>
-</body>
+  </body>
 </html>
