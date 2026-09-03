@@ -8,8 +8,8 @@ class Agent {
 
     // Propiedades generativas únicas para cada volcán (inspirado en tu ejemplo)
     this.vWidth = random(130, 220) // Ancho de la base aleatorio
-    this.topWidth = random(35, 75) // Ancho del cráter superior aleatorio
-    this.vHeight = random(120, 200) // Altura del volcán aleatoria
+    this.topWidth = random(35, 55) // Ancho del cráter superior aleatorio
+    this.vHeight = random(120, 290) // Altura del volcán aleatoria
 
     // Tono de roca volcánica único y terroso para cada montaña
     this.vColor = color(random(30, 70), random(25, 50), random(45, 85))
@@ -82,14 +82,14 @@ class Agent {
     let magmaColor = lerpColor(coldMagma, hotMagma, pressureRatio)
 
     fill(magmaColor)
-    ellipse(peakX, peakY, this.topWidth * 0.75, 16) // Óvalo del cráter
+    ellipse(peakX, peakY, this.topWidth, 16) // Óvalo del cráter
 
     // Anillo de alerta si la presión está al límite (> 80%)
     if (pressureRatio > 0.8) {
       noFill()
       stroke(255, 200, 0, 180)
       strokeWeight(2)
-      ellipse(peakX, peakY, this.topWidth * 0.85, 20)
+      ellipse(peakX, peakY, this.topWidth, 20)
     }
     pop()
 
