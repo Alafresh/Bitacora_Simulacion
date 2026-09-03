@@ -16,9 +16,9 @@ class Agent {
     this.omega = omegaBase
 
     // Propiedades generativas únicas para cada volcán en miniatura
-    this.vBaseWidth = random(35, 55) // Ancho en la base de la superficie del planeta
-    this.vTopWidth = random(16, 26) // Ancho del cráter
-    this.vHeight = random(25, 45) // Altura hacia afuera de la superficie
+    this.vBaseWidth = random(25, 40) // Ancho en la base sobre la superficie
+    this.vTopWidth = random(14, 22) // Ancho del cráter
+    this.vHeight = random(22, 38) // Altura hacia afuera de la superficie
 
     // Tono de roca volcánica único
     this.vColor = color(random(50, 90), random(40, 70), random(60, 100))
@@ -67,44 +67,47 @@ class Agent {
     push()
     let pressureRatio = this.theta / TWO_PI
 
-    // Calcular el ángulo estático del agente más la rotación global del planeta
+    // Ángulo estático del agente + rotación global del planeta
     let angle = this.index * (TWO_PI / this.total) + planetRotation
 
-    // Trasladar el origen al centro del planeta y rotar para alinear con la normal radial
     translate(planetX, planetY)
     rotate(angle)
 
-    // Posición base sobre la superficie del planeta (en el borde exterior de la esfera) y el pico hacia afuera
+    // El eje X local ahora apunta radialmente hacia afuera desde el centro del planeta
     let baseR = planetRadius
     let tipR = planetRadius + this.vHeight
 
-    // 1. Dibujar el cono del volcán apuntando hacia afuera utilizando polígonos (quad / beginShape)
+    // 1. Dibujar el cono del volcán apuntando hacia afuera
     noStroke()
     fill(this.vColor)
-    beginShape()
-    vertex(-this.vBaseWidth / 2, baseR) // Base izquierda
-    vertex(this.vBaseWidth / 2, baseR) // Base derecha
-    vertex(this.vTopWidth / 2, tipR) // Cumbre derecha
-    vertex(-this.vTopWidth / 2, tipR) // Cumbre izquierda
-    endShape(CLOSE)
+    quad(
+      baseR,
+      -this.vBaseWidth / 2, // Base izquierda
+      baseR,
+      this.vBaseWidth / 2, // Base derecha
+      tipR,
+      this.vTopWidth / 2, // Cumbre derecha
+      tipR,
+      -this.vTopWidth / 2, // Cumbre izquierda
+    )
 
-    // 2. El cráter y la piscina de magma interior que reacciona a la presión (θ_i)
+    // 2. El cráter y la piscina de magma interior
     let coldMagma = color(60, 45, 60)
     let hotMagma = color(255, 110, 0)
     let magmaColor = lerpColor(coldMagma, hotMagma, pressureRatio)
 
     fill(magmaColor)
-    ellipse(0, tipR, this.vTopWidth * 0.8, 8) // El óvalo del cráter visto de perfil radial
+    ellipse(tipR, 0, 8, this.vTopWidth * 0.8)
 
     // Anillo de alerta si la presión está al límite (> 80%)
     if (pressureRatio > 0.8) {
       noFill()
       stroke(255, 200, 0, 180)
       strokeWeight(1.5)
-      ellipse(0, tipR, this.vTopWidth, 10)
+      ellipse(tipR, 0, 10, this.vTopWidth)
     }
 
-    // 3. Lógica de erupción (spritesheet brotando hacia el espacio exterior desde el cráter)
+    // 3. Lógica de erupción (spritesheet brotando exactamente desde el cráter hacia afuera)
     if (this.isAnimating) {
       let now = millis()
       if (now - this.lastFrameTime > this.frameDuration) {
@@ -116,19 +119,19 @@ class Agent {
         this.isAnimating = false
       } else {
         push()
-        // Nos posicionamos exactamente en la cumbre del volcán y des-rotamos temporalmente
-        // para que las explosiones siempre broten verticalmente hacia arriba respecto al espacio
-        translate(0, tipR)
-        rotate(-angle)
+        // Nos posicionalmos exactamente en la punta del cráter (tipR, 0)
+        translate(tipR, 0)
+        // Rotamos 90 grados para alinear la erupción con la dirección radial saliente
+        rotate(HALF_PI)
 
-        let spriteSize = 70
+        let spriteSize = 65
         drawSpriteFrame(
           this.spriteSheet,
           this.cols,
           this.rows,
           this.currentFrame,
           -spriteSize / 2,
-          -spriteSize + 5,
+          -spriteSize, // Hace que la base de la explosión nazca justo en el borde del cráter
           spriteSize,
           spriteSize,
         )

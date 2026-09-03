@@ -130,13 +130,13 @@ function mouseDragged() {
   let planetRadius = 140
 
   for (let agent of agents) {
-    // Calcular posición actual en pantalla del volcán para la interacción del mouse
+    // Apuntar al área del cráter en la superficie exterior
     let angle = agent.index * (TWO_PI / 8) + planetRotation
-    let vx = planetX + cos(angle) * planetRadius
-    let vy = planetY + sin(angle) * planetRadius
+    let vx = planetX + cos(angle) * (planetRadius + 20)
+    let vy = planetY + sin(angle) * (planetRadius + 20)
 
     let d = dist(mouseX, mouseY, vx, vy)
-    if (d < 35) {
+    if (d < 30) {
       agent.theta += (movedX + movedY) * 0.05
       if (agent.theta < 0) {
         agent.theta += TWO_PI
