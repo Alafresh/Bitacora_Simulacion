@@ -22,14 +22,15 @@ function setup() {
   let omegas = [PI * 0.5, PI * 1.0, PI * 2.0, PI * 0.25]
 
   for (let i = 0; i < 8; i++) {
-    let angle = (TWO_PI / 8) * i
-    let x = centerX + cos(angle) * radius
-    let y = centerY + sin(angle) * radius
+    // Distribuir los 8 volcanes horizontalmente de izquierda a derecha
+    let x = map(i, 0, 7, 80, width - 80)
+    // Altura de la cumbre de los volcanes (alineados cerca de la mitad inferior)
+    let y = height - 160
 
     let pIndex = i % 4
     let omegaBase = omegas[pIndex]
 
-    // Instanciamos los 8 agentes con el mismo sprite/sonido y los parámetros 4, 4, 16
+    // Instanciar el agente volcánico
     agents.push(new Agent(x, y, omegaBase, baseSprite, baseSound, 4, 4, 16))
   }
 }
@@ -37,9 +38,10 @@ function setup() {
 function draw() {
   let r = calculateOrderParameter()
 
-  let caosColor = color(30, 30, 30)
-  let syncColor = color(0, 100, 200)
-  let bgColor = lerpColor(caosColor, syncColor, r)
+  // Colores de cielo inspirados en las referencias (Atardecer cálido / Celeste claro)
+  let skyCaos = color(230, 180, 150) // Tono melocotón/atardecer suave
+  let skySync = color(100, 170, 210) // Celeste brillante de cielo despejado
+  let bgColor = lerpColor(skyCaos, skySync, r)
 
   background(bgColor)
 

@@ -1,8 +1,7 @@
 class Agent {
-  // El constructor ahora exige cols, rows y totalFrames
   constructor(x, y, omegaBase, spriteSheet, sound, cols, rows, totalFrames) {
-    this.x = x
-    this.y = y
+    this.x = x // Coordenada X del cráter/cumbre del volcán
+    this.y = y // Coordenada Y de la cumbre
     this.theta = random(TWO_PI)
     this.omegaBase = omegaBase
     this.omega = omegaBase
@@ -12,7 +11,6 @@ class Agent {
     this.isAnimating = false
     this.currentFrame = 0
 
-    // Asignación de variables de recorte pasadas desde setup
     this.cols = cols
     this.rows = rows
     this.totalFrames = totalFrames
@@ -25,7 +23,6 @@ class Agent {
     let sum = 0
     let N = allAgents.length
 
-    // Matemática de acoplamiento de Kuramoto
     for (let other of allAgents) {
       let phaseDifference = other.theta - this.theta
       sum += Math.sin(phaseDifference)
@@ -51,17 +48,40 @@ class Agent {
 
   draw() {
     push()
-    translate(this.x, this.y)
-    noFill()
-    stroke(100)
-    strokeWeight(2)
-    circle(0, 0, 50)
+    let pressureRatio = this.theta / TWO_PI
 
-    stroke(255)
-    let phaseRadius = 25
-    line(0, 0, cos(this.theta) * phaseRadius, sin(this.theta) * phaseRadius)
+    // 1. Dibujar la silueta del volcán (estilo vector plano / rocas oscuras)
+    let baseWidth = 130
+    let mountainBottom = height // Llega hasta el suelo del canvas
+
+    noStroke()
+    // Color base de roca volcánica (tonos púrpuras/grises oscuros inspirados en las referencias)
+    fill(42, 38, 53)
+    beginShape()
+    vertex(this.x - baseWidth / 2, mountainBottom) // Base izquierda
+    vertex(this.x + baseWidth / 2, mountainBottom) // Base derecha
+    vertex(this.x + 22, this.y) // Cumbre derecha del cráter
+    vertex(this.x - 22, this.y) // Cumbre izquierda del cráter
+    endShape(CLOSE)
+
+    // 2. El cráter y la piscina de magma interior
+    let coldMagma = color(60, 45, 60)
+    let hotMagma = color(255, 110, 0)
+    let magmaColor = lerpColor(coldMagma, hotMagma, pressureRatio)
+
+    fill(magmaColor)
+    ellipse(this.x, this.y, 44, 16) // El óvalo del cráter superior
+
+    // Anillo de alerta si la presión está al límite (> 80%)
+    if (pressureRatio > 0.8) {
+      noFill()
+      stroke(255, 200, 0, 180)
+      strokeWeight(2)
+      ellipse(this.x, this.y, 52, 20)
+    }
     pop()
 
+    // 3. Lógica de erupción (el spritesheet brotando desde el cráter)
     if (this.isAnimating) {
       let now = millis()
       if (now - this.lastFrameTime > this.frameDuration) {
@@ -72,14 +92,15 @@ class Agent {
       if (this.currentFrame >= this.totalFrames) {
         this.isAnimating = false
       } else {
-        let spriteSize = 100
+        let spriteSize = 110
+        // Se dibuja centrado justo encima de la cumbre (this.x, this.y)
         drawSpriteFrame(
           this.spriteSheet,
           this.cols,
           this.rows,
           this.currentFrame,
           this.x - spriteSize / 2,
-          this.y - spriteSize / 2,
+          this.y - spriteSize - 20,
           spriteSize,
           spriteSize,
         )
