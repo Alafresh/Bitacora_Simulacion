@@ -33,7 +33,7 @@ Sincronía tectónica en volcanes (o sincronía vulcanotectónica) se refiere al
 
 - En el cuento del principito el cuida los volcanes, se implementa una Mecánica de Limpieza con la tecla W, el usuario asume el rol del protagonista barriendo la superficie con chispas doradas para devolver el orden caótico y la independencia a los cráteres.
 - La Rosa, representa la fragilidad, el cuidado y la singularidad que motivan la existencia del pequeño mundo
-- Aislamiento Planetario, conecta el concepto de un planeta solitario en la inmensidad del espacio profundo con el modelo de Kuramoto. sus 8 agentes reflejan cómo en un micromundo cerrado, cualquier perturbación local (como el terremoto tectónico con la barra espaciadora) repercute de manera inmediata e ineludible en todo el colectivo.
+- Aislamiento Planetario, conecta el concepto de un planeta solitario en la inmensidad del espacio profundo con el modelo de Kuramoto. Sus 8 agentes reflejan cómo en un micromundo cerrado, cualquier perturbación local (como el terremoto tectónico con la barra espaciadora) repercute de manera inmediata e ineludible en todo el colectivo.
 
 ![Imagen](./imagenes/Principito_Volcanes.jpg)
 
@@ -47,9 +47,13 @@ Sincronía tectónica en volcanes (o sincronía vulcanotectónica) se refiere al
 - **Volcán 5**: Cuenta con una frecuencia reducida de $\pi \times 0.1$, utilizando el sonido ambiental de sintetizador seco `dry_synth.mp3` y una columna de llama vertical
 - **Volcán 6**: El agente más contemplativo, con una frecuencia casi estática de $\pi \times 0.05$, ejecuta un sintetizador melódico extendido `Riff_Synth.mp3` sincronizado con una esfera mágica cuya animación se mantiene en bucle estricto hasta finalizar el audio.
 
-¿Cómo convertir un modelo de autoorganización en un instrumento audiovisual performativo?
+#### ¿Cómo convertir un modelo de autoorganización en un instrumento audiovisual performativo?
 
 - Primero hay que traducir las variables invisibles del sistema matematico en dimensiones concretas como; sprites en bucles, activacion de audio ritmico, variacion de la atmosfera del planeta.
-- Exponer los parametros estructurales del modelo a interfaces de interaccion, deslizadores de $K$ y $\omega$, comandos de teclado para terremotos tectónicos con SPACE o limpieza con W que transforman una simulación cerrada en un entorno ejecutable.  
-  ¿Qué hace Kuramoto en esta experiencia que no podría resolverse simplemente mediante un reloj global, un secuenciador o temporizadores independientes?
+- Exponer los parametros estructurales del modelo a interfaces de interaccion, deslizadores de $K$ y $\omega$, comandos de teclado para terremotos tectónicos con SPACE o limpieza con W que transforman una simulación cerrada en un entorno ejecutable.
+
+#### ¿Qué hace Kuramoto en esta experiencia que no podría resolverse simplemente mediante un reloj global, un secuenciador o temporizadores independientes?
+
 - Kuramoto genera un comportamiento emergente y descentralizado, donde los volcanes ajustan sus frecuencias de manera orgánica al ser influenciados localmente por las fases de sus vecinos.
+
+### [Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
