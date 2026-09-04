@@ -59,3 +59,16 @@ Sincronía tectónica en volcanes (o sincronía vulcanotectónica) se refiere al
 - Kuramoto genera un comportamiento emergente y descentralizado, donde los volcanes ajustan sus frecuencias de manera orgánica al ser influenciados localmente por las fases de sus vecinos.
 
 ### [Enlace del Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
+
+| Requisito Mínimo                                                | Estado     | Implementación en el Proyecto                                                                                                          | Calificación |
+| --------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| **8 agentes simultáneos gobernados dinámicamente**              | ✅ Cumple  | Arreglo `agents` inicializado y gestionado con `totalAgents = 8` mediante el algoritmo iterativo.                                      | 5.0 / 5.0    |
+| **4 personalidades audiovisuales diferentes**                   | ✅ Cumple  | Implementamos 7 personalidades con `i % 7`, asignando frecuencias _omega_, proporciones geométricas, sprites y audios únicos.          | 5.0 / 5.0    |
+| **Manifestación visual y sonora vinculada al comportamiento**   | ✅ Cumple  | Lógica en `Agent.js`: el magma sube según la presión _theta_. Al cruzar 2π, detona el audio y el bucle dinámico del spritesheet.       | 5.0 / 5.0    |
+| **Modificar 2 variables en tiempo real (K obligatorio)**        | ✅ Cumple  | Interfaz UI conectada para alterar el acoplamiento global (_K_) y la inyección de varianza/ruido de fase (_omega_).                    | 5.0 / 5.0    |
+| **2 interacciones performativas (Global e Individual)**         | ⚠️ Parcial | **Global:** Teclas `SPACE` y `W` listas.<br><br>**Individual:** Falta crearr el clic/arrastre con el mouse sobre un cráter específico. | 2.5 / 5.0    |
+| **Mecanismo de perturbación para alterar y observar respuesta** | ✅ Cumple  | Tecla `SPACE` (Terremoto) satura _K_ temporalmente; `W` inyecta entropía, forzando al sistema a renegociar su equilibrio.              | 5.0 / 5.0    |
+| **Reconocer 3 estados (Desorden, Parcial, Estable)**            | ✅ Cumple  | Lógica matemática basada en el parámetro _r_: Desorden (_r_ < 0.3), Parcial (0.3 ≤ _r_ < 0.8) y Estable (_r_ ≥ 0.8).                   | 5.0 / 5.0    |
+| **Forma perceptible de comunicar el estado colectivo**          | ✅ Cumple  | Halo atmosférico reactivo (azul frío → gris → rojo incandescente pulsante) y HUD de texto alternable con `H`.                          | 5.0 / 5.0    |
+
+**Nota Final Estimada: 4.5 / 5.0**
