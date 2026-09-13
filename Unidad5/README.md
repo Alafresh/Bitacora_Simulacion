@@ -18,7 +18,11 @@ Una partícula aislada puede moverse. Una relación hace posible una estructura.
 
 La estructura del sistema de particulas empieza como una masa cerrada y contenida "Un Huevo" demostrando el potencial; posteriormente se abre y se organiza en una silueta de un ave joven que es acompañada por un ave adulta la cual ya tiene su propia trayectoria, antes que el joven existiera.
 
+![Imagen](./Huevo_Ave.jpeg)
+
 Esta relacion evoca el mito de Ícaro y Dédalo, un vuelo enseñador por quien ya sabe volar, pero cambiamos el final, ambas generaciones terminan sosteniendose en el aire y ninguna cae, es la traduccion visual de "el crecimiento no ocurre cuando una generación reemplaza a otra, ocurre cuando trabajan juntas" existe una colaboracion sostenida.
+
+![Imagen](./Icaro_Dedalo.jpeg)
 
 | #   | Comportamiento de partículas                                                                                           | Representa (por qué no es decorativo ni literal)                                                         |
 | --- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -37,3 +41,13 @@ Esta relacion evoca el mito de Ícaro y Dédalo, un vuelo enseñador por quien y
 | 13  | Altura estable, formación abierta, sin caída; los QR son puntos de descanso                                            | El final feliz frente a Ícaro                                                                            |
 
 ## [Enlace del Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
+
+### Autoevaluacion
+
+| #   | Criterio                     | Puntos  |
+| --- | ---------------------------- | ------- |
+| 1   | Cumplimiento del encargo     | 1.15    |
+| 2   | Relaciones estructurales     | 1.25    |
+| 3   | Comportamiento y significado | 1.20    |
+| 4   | Explicación y demostración   | 1.15    |
+|     | **Total**                    | **4.7** |
