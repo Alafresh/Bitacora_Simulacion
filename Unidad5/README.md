@@ -20,7 +20,7 @@ La estructura del sistema de particulas empieza como una masa cerrada y contenid
 
 ![Imagen](./Huevo_Ave.jpeg)
 
-Esta relacion evoca el mito de Ícaro y Dédalo, un vuelo enseñador por quien ya sabe volar, pero cambiamos el final, ambas generaciones terminan sosteniendose en el aire y ninguna cae, es la traduccion visual de "el crecimiento no ocurre cuando una generación reemplaza a otra, ocurre cuando trabajan juntas" existe una colaboracion sostenida.
+Esta relacion evoca el mito de Ícaro y Dédalo, un vuelo enseñado por quien ya sabe volar, pero cambiamos el final, ambas generaciones terminan sosteniendose en el aire y ninguna cae, es la traduccion visual de "el crecimiento no ocurre cuando una generación reemplaza a otra, ocurre cuando trabajan juntas" existe una colaboracion sostenida.
 
 ![Imagen](./Icaro_Dedalo.jpeg)
 
@@ -40,7 +40,7 @@ Esta relacion evoca el mito de Ícaro y Dédalo, un vuelo enseñador por quien y
 | 12  | Ascenso helicoidal compartido                                                                                          | El futuro se construye con esfuerzo conjunto y visible                                                   |
 | 13  | Altura estable, formación abierta, sin caída; los QR son puntos de descanso                                            | El final feliz frente a Ícaro                                                                            |
 
-## [Enlace del Demo](https://editor.p5js.org/alafresh16/sketches/WWpB-B13U)
+## [Enlace del Demo](https://genesis-flight-path.lovable.app/)
 
 ### Autoevaluacion
 
