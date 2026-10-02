@@ -33,13 +33,13 @@ Este repositorio funciona como mi bitácora de desarrollo para el curso. Aquí d
    npm run dev
    ```
 
-| Unidad | Tema                     | Bitácora / Evidencias                          |   Prototipo    |
-| :----: | :----------------------- | :--------------------------------------------- | :------------: |
-| **01** | Aleatoriedad             | [Ver notas y reflexiones](./Unidad1/README.md) | [Demo Live](#) |
-| **02** | Vectores y Movimiento    | [Ver notas y reflexiones](./Unidad2/README.md) |      ---       |
-| **03** | Fuerzas                  | [Ver notas y reflexiones](./Unidad3/README.md) |      ---       |
-| **04** | Oscilaciones             | ---                                            |      ---       |
-| **05** | Sistemas de Partículas   | ---                                            |      ---       |
-| **06** | Agentes Autónomos        | ---                                            |      ---       |
-| **07** | Sistemas Complejos       | ---                                            |      ---       |
-| **08** | Reto Final e Integración | ---                                            |      ---       |
+| Unidad | Tema                     | Bitácora / Evidencias                          |                                     Prototipo                                      |
+| :----: | :----------------------- | :--------------------------------------------- | :--------------------------------------------------------------------------------: |
+| **01** | Aleatoriedad             | [Ver notas y reflexiones](./Unidad1/README.md) |                                   [Demo Live](#)                                   |
+| **02** | Vectores y Movimiento    | [Ver notas y reflexiones](./Unidad2/README.md) |                                        ---                                         |
+| **03** | Fuerzas                  | [Ver notas y reflexiones](./Unidad3/README.md) |                                        ---                                         |
+| **04** | Oscilaciones             | ---                                            |                                        ---                                         |
+| **05** | Sistemas de Partículas   | ---                                            |                                        ---                                         |
+| **06** | Agentes Autónomos        | ---                                            | [Instrumento visual](https://alafresh.github.io/Instrumento_Visual_Pankobabaunka/) |
+| **07** | Sistemas Complejos       | ---                                            |                                        ---                                         |
+| **08** | Reto Final e Integración | ---                                            |                                        ---                                         |
