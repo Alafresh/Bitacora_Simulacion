@@ -23,3 +23,37 @@ Diseñar un sitema tipografico jugable que permita explorar la identidad de una 
 - 📹[Diseñar un sistema capaz de producir animaciones](https://2026.typographics.com/conference/kiel-d-mutschelknaus)
 - 📹[SPACE TYPE GENERATOR v.field : Variations Demo](https://vimeo.com/294650043)
 - 📹[typeChaosifier Dev Valladares](https://valladares.dev/typechaosifier)
+
+## Actividad 02: encargo de diseño
+
+Elige una empresa u organización y precisa:
+
+**Empresa: Mattelsa**
+
+- 📹[MATTELSA: 25 años de lecciones sin filtros en 100 minutos](https://youtu.be/9fqRMGzvttI?si=EoYjNV642ER23H3y)
+
+1. Qué hace y a qué público se dirige.
+
+   **Qué hace: Compañía colombiana de streetwear y comunidad enfocada en la cultura de bienestar, el consumo consciente y la transformación social/ambiental**
+
+   **Público: Adultos jovenes con pensamiento crítico, interesados en el diseño minimalista/brutalista, la sostenibilidad, la cultura de calle y el desarrollo personal.**
+
+2. Qué atributo de su identidad quieres comunicar y en qué te basas para elegirlo.
+
+   **Atributo: Sintonía y Equilibrio.**
+
+   **Fundamento: Basado en la gráfica de las pantallas CRT ("Mantén el equilibrio") y el diagrama Ego vs. Ser Supremo de su revista. En un entorno saturado de ruido y consumo excesivo, Mattelsa propone un dia de pausa y alineación personal.**
+
+3. Dónde se utilizaría la pieza: por ejemplo, una portada web, una presentación o una pantalla en un evento.
+
+   **Ubicación: Hero interactivo / Portada web principal (mattelsa.net) o pantalla táctil interactiva para la zona de experiencia y descanso en sus tiendas físicas.**
+
+4. Qué podrá hacer la persona y qué reglas darán sentido a esas acciones.
+
+   **Todas las geometrías en pantalla nacen exclusivamente de las letras M - A - T - T - E - L - S - A: Transformación Tipográfica Procedural**
+
+   **Acción: Arrastrar o rotar las letras en el espacio 3D**
+
+5. Qué relaciones o consecuencias esperas que pueda descubrir jugando.
+
+   **El silencio revela el propósito: La pausa y el silencio descubren el impacto real de la marca**
