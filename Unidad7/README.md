@@ -79,3 +79,15 @@ y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos
 **Autoevaluacion 5**
 
 <img src="magara.png" width="300" alt="Descripción de la imagen">
+
+**To do**
+
+- Animación estilo Pixar: Hacer que el logo de Mattelsa entre saltando y aplaste una de las letras para reemplazarla.
+
+- Colisión del agua: Lograr que la cascada choque, rebote y salpique al entrar en contacto con las letras.
+
+- Letras vivas: Programar que las letras florezcan o les crezca musgo una vez que reciban suficiente agua.
+
+- Relieve en el suelo: Darle desniveles y colinas al pasto (FluffyGrass) para que deje de ser un plano completamente liso.
+
+- Descanso final: Hacer que, al terminar la interacción, las letras caigan suavemente y queden acostadas sobre la hierba.
