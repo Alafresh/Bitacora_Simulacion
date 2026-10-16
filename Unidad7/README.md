@@ -36,11 +36,13 @@ Aprovechando que tengo una revista de mattelsa y un artoy que me gane anteriorme
 
 <img src="Oso.jpeg" width="300" alt="Descripción de la imagen">
 
-![Imagen](./Revista.jpeg)
+<img src="Revista.jpeg" width="300" alt="Descripción de la imagen">
 
 ![Imagen](./primerosPasos.gif)
 
 Entonces en una pagina de la revista encontre encontre que tienen varios proyectos Magara y Makuk son dos reservas naturales, que se dedican a recuperar el bosque tropical seco que se usaban para ganaderia
+
+<img src="./ecosistema.jpeg" width="300" alt="Descripción de la imagen">
 
 ![Imagen](./ecosistema.jpeg)
 
