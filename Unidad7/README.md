@@ -60,7 +60,7 @@ y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos
 
    **Atributo: Sintonía y Equilibrio.**
 
-   **Fundamento: Basado en la gráfica de las pantallas CRT ("Mantén el equilibrio") y el diagrama Ego vs. Ser Supremo de su revista. En un entorno saturado de ruido y consumo excesivo, Mattelsa propone un dia de pausa y alineación personal.**
+   **Fundamento: Detras de una fachada industrial hay un nucleo vivo y natural, contraste estetico de la marca por un lado tienen elementos duros y metalicos como el artoy, ropa urbana pero si buscamos en su esencia, revelan proyectos de vida y recuperacion**
 
 3. Dónde se utilizaría la pieza: por ejemplo, una portada web, una presentación o una pantalla en un evento.
 
@@ -68,12 +68,12 @@ y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos
 
 4. Qué podrá hacer la persona y qué reglas darán sentido a esas acciones.
 
-   **Todas las geometrías en pantalla nacen exclusivamente de las letras M - A - T - T - E - L - S - A: Transformación Tipográfica Procedural**
-
-   **Acción: Arrastrar o rotar las letras en el espacio 3D**
+   **El usuario se encontrará con la palabra "MATTELSA" construida en un material rigido y gris, inmersa en el vacio, La acción principal será tocar cada una de las letras. La regla del sistema es la transformación consciente cada clic altera la geometría de la letra hacia una tipografía amable y libera un simulador físico de la naturaleza.**
 
 5. Qué relaciones o consecuencias esperas que pueda descubrir jugando.
 
-   **El silencio revela el propósito: La pausa y el silencio descubren el impacto real de la marca**
+   **Lo que hay detras de una camisa de mattelsa, detras de una marca de ropa hay un ecosistema de proyectos que busca servir a los demas seres vivos, todo esto se refleja cuando las letras cambian**
 
 ## [Enlace Demo](https://mattelsa-tipografia.vercel.app/)
+
+**Autoevaluacion 5**
