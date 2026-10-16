@@ -28,7 +28,25 @@ Diseñar un sitema tipografico jugable que permita explorar la identidad de una 
 
 Elige una empresa u organización y precisa:
 
+### Inspiración del Proyecto
+
 **Empresa: Mattelsa**
+
+Aprovechando que tengo una revista de mattelsa y un artoy que me gane anteriormente los use como referente conceptual y visual.
+
+![Imagen](./Oso.jpeg)
+
+![Imagen](./Revista.jpeg)
+
+![Imagen](./primerosPasos.gif)
+
+Entonces en una pagina de la revista encontre encontre que tienen varios proyectos Magara y Makuk son dos reservas naturales, que se dedican a recuperar el bosque tropical seco que se usaban para ganaderia
+
+![Imagen](./ecosistema.jpeg)
+
+y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos observar un humano hecho de naturaleza, sobre la cuerda floja y al lado una pagina que indica en que momentos hay que guardar silencio siendo uno Cuando estas frente a la naturaleza, y este mensaje se convirtio en la inspiracion para desarrollar el reto
+
+![Imagen](./Naturaleza.jpeg)
 
 - 📹[MATTELSA: 25 años de lecciones sin filtros en 100 minutos](https://youtu.be/9fqRMGzvttI?si=EoYjNV642ER23H3y)
 
@@ -57,3 +75,5 @@ Elige una empresa u organización y precisa:
 5. Qué relaciones o consecuencias esperas que pueda descubrir jugando.
 
    **El silencio revela el propósito: La pausa y el silencio descubren el impacto real de la marca**
+
+## [Enlace Demo](https://mattelsa-tipografia.vercel.app/)
