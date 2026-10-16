@@ -34,7 +34,7 @@ Elige una empresa u organización y precisa:
 
 Aprovechando que tengo una revista de mattelsa y un artoy que me gane anteriormente los use como referente conceptual y visual.
 
-![Imagen](./Oso.jpeg)
+<img src="Oso.jpeg" width="300" alt="Descripción de la imagen">
 
 ![Imagen](./Revista.jpeg)
 
