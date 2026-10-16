@@ -77,3 +77,5 @@ y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos
 ## [Enlace Demo](https://mattelsa-tipografia.vercel.app/)
 
 **Autoevaluacion 5**
+
+<img src="magara.png" width="300" alt="Descripción de la imagen">
