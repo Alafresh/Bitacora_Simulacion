@@ -54,7 +54,7 @@ y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos
 
    **Qué hace: Compañía colombiana de streetwear y comunidad enfocada en la cultura de bienestar, el consumo consciente y la transformación social/ambiental**
 
-   **Público: Adultos jovenes con pensamiento crítico, interesados en el diseño minimalista/brutalista, la sostenibilidad, la cultura de calle y el desarrollo personal.**
+   **Público: Adultos jovenes con pensamiento crítico, interesados en el diseño minimalista, la sostenibilidad, la cultura de calle y el desarrollo personal.**
 
 2. Qué atributo de su identidad quieres comunicar y en qué te basas para elegirlo.
 
