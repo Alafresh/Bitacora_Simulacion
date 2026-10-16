@@ -44,8 +44,6 @@ Entonces en una pagina de la revista encontre encontre que tienen varios proyect
 
 <img src="./ecosistema.jpeg" width="300" alt="Descripción de la imagen">
 
-![Imagen](./ecosistema.jpeg)
-
 y me gusto otra ilustracion que dice Equilibrio a traves del movimiento, podemos observar un humano hecho de naturaleza, sobre la cuerda floja y al lado una pagina que indica en que momentos hay que guardar silencio siendo uno Cuando estas frente a la naturaleza, y este mensaje se convirtio en la inspiracion para desarrollar el reto
 
 ![Imagen](./Naturaleza.jpeg)
