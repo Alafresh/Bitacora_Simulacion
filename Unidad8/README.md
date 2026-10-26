@@ -24,4 +24,29 @@
 
 - Siempre me tome la tarea de buscar referentes, en la primera actividad hasta de entender el codigo y decirle a la ia que simplificara la experiencia por algo que pudiera entender, pero nunca me detuve analizar si en verdad estoy aprendiendo, en esta modernidad liquida donde se valora mas la velocidad por entregar y estas metricas miden nuestra eficiencia, es facil crear un sesgo de aprendizaje.
 
-<img src="sindrome.jpg" width="600" alt="sYNDROME">
+## Actividad 03: presentar la exploración
+
+### EVERYONE IS CREATIVE
+
+### Producir algo no es lo mismo que tener algo que decir
+
+#### ¿Cómo interpretaste la pregunta Why Bother? ¿Qué aspecto decidiste explorar y cómo cambió tu interpretación mientras trabajabas?
+
+- La facilidad de producir contenido y la dificultad de crear algo significativo
+- Demos fallidos:
+  - [Somos la vacas del futuro](https://vaquitas-mecha-y-flora.lovable.app/)
+  - [Tres actos](https://pl3vuixxgcn5k.kimi.page/)
+
+### ¿Cómo lo exploraste? ¿Qué técnicas elegiste, qué decisiones tomaste y qué pruebas orientaron el desarrollo?
+
+- Tome referencias como Syndrome el villano de los increibles
+  <img src="sindrome.jpg" width="600" alt="SYNDROME">
+
+- [The full-length interview with Yuval Noah Harari](https://youtu.be/FNZhxTtOL-I?si=AB94bOGSObpNfkDT)
+  ¿Somos las vacas del futuro?, Para mi ya lo somos, la IA no nos convierte en vacas, solo hace evidente que llevamos mucho tiempo siendolo. Si una persona comun no entiende como se calcula una tasa de interes, como funciona el codigo penal o como se estructura una campaña publicitaria que influye en nuestras decisiones, entonces este sintoma ya existia mucho antes de la AI
+
+- Modernidad Liquida de Zygmunt Bauman.... continuara
+
+¿Qué encontraste? ¿Qué ocurrió como esperabas, qué te sorprendió y qué sigue abierto?
+¿Qué aprendiste realmente? ¿Qué puedes comprender, explicar o modificar ahora?
+¿Qué sentido tuvo tomarte el trabajo? ¿Qué te hizo continuar, qué esfuerzo consideraste valioso y cómo te sitúas ahora frente a la pregunta de Hodgin?
