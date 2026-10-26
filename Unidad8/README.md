@@ -22,6 +22,6 @@
 
 ### Si revisas tus autoevaluaciones, ¿Reconoces tu experiencia en lo que dicen? ¿Te detuviste a examinar tu aprendizaje o delegaste el juicio sobre lo que aprendiste?
 
-- Siempre me tome la tarea de buscar referentes, en la primera actividad hasta de entender el codigo y decirle a la ia que simplificara la experiencia por algo que pudiera entender, pero nunca me detuve analizar si en verdad estoy aprendiendo, en esta modernidad liquida donde se valora mas la velocidad por entregar y estas metricas miden nuestra eficiencia, se crea un sesgo de aprendizaje.
+- Siempre me tome la tarea de buscar referentes, en la primera actividad hasta de entender el codigo y decirle a la ia que simplificara la experiencia por algo que pudiera entender, pero nunca me detuve analizar si en verdad estoy aprendiendo, en esta modernidad liquida donde se valora mas la velocidad por entregar y estas metricas miden nuestra eficiencia, es facil crear un sesgo de aprendizaje.
 
 <img src="sindrome.jpg" width="600" alt="sYNDROME">
