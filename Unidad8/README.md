@@ -39,7 +39,7 @@
 
 ### ¿Cómo lo exploraste? ¿Qué técnicas elegiste, qué decisiones tomaste y qué pruebas orientaron el desarrollo?
 
-- Tome referencias como Syndrome el villano de los increibles
+- Tome referencias como Syndrome el villano de los increibles (Y cuando todos sean super, nadie lo sera)
   <img src="sindrome.jpg" width="600" alt="SYNDROME">
 
 - [The full-length interview with Yuval Noah Harari](https://youtu.be/FNZhxTtOL-I?si=AB94bOGSObpNfkDT)
