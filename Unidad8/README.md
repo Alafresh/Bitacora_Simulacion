@@ -26,7 +26,7 @@
 
 ## Actividad 03: presentar la exploración
 
-### EVERYONE IS CREATIVE
+### [EVERYONE IS CREATIVE](https://whybro-chi.vercel.app/)
 
 ### Producir algo no es lo mismo que tener algo que decir
 
