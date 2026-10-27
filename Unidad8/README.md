@@ -45,8 +45,16 @@
 - [The full-length interview with Yuval Noah Harari](https://youtu.be/FNZhxTtOL-I?si=AB94bOGSObpNfkDT)
   ¿Somos las vacas del futuro?, Para mi ya lo somos, la IA no nos convierte en vacas, solo hace evidente que llevamos mucho tiempo siendolo. Si una persona comun no entiende como se calcula una tasa de interes, como funciona el codigo penal o como se estructura una campaña publicitaria que influye en nuestras decisiones, entonces este sintoma ya existia mucho antes de la AI
 
-- Modernidad Liquida de Zygmunt Bauman.... continuara
+- Modernidad Liquida de Zygmunt Bauman metafora La era de la modernidad solida ha llegado a su fin. por que los solidos, a diferencia de los liquidos, conservan su forma y persisten en el tiempo. En cambio, los liquidos se transforman constantemente.
 
-¿Qué encontraste? ¿Qué ocurrió como esperabas, qué te sorprendió y qué sigue abierto?
-¿Qué aprendiste realmente? ¿Qué puedes comprender, explicar o modificar ahora?
-¿Qué sentido tuvo tomarte el trabajo? ¿Qué te hizo continuar, qué esfuerzo consideraste valioso y cómo te sitúas ahora frente a la pregunta de Hodgin?
+### ¿Qué encontraste? ¿Qué ocurrió como esperabas, qué te sorprendió y qué sigue abierto?
+
+- La abundancia puede reducir la percepcion de valor y como pierde significado cuando se automatiza.
+
+### ¿Qué aprendiste realmente? ¿Qué puedes comprender, explicar o modificar ahora?
+
+- Aprendi a explorar ideas abstractas mediante algoritmos, diseñar una experiencia que comunique una idea concreta
+
+### ¿Qué sentido tuvo tomarte el trabajo? ¿Qué te hizo continuar, qué esfuerzo consideraste valioso y cómo te sitúas ahora frente a la pregunta de Hodgin?
+
+- construir una experiencia que haga visible una contradiccion, mi postura es la misma hay miles de personas que no saben que es claude, agentes, skills, command line interface y son felices, por que me voy a estresar por el avance de la AI para automatizar mis tareas, Algunas personas seguiran con el habito del doomscrolling, y yo espero estar al otro lado.
